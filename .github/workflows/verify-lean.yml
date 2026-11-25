@@ -75,7 +75,7 @@ jobs:
           path: lean/.lake/build
           key: ${{ steps.oai-cache.outputs.cache-primary-key }}
 
-      - name: 构建证明并检查三个定理允许使用的公理
+      - name: 构建证明并检查指数与门数定理的公理
         env:
           # 标准公开 Linux 运行器有四个 CPU、16 GB 内存，为 Lean 的任务池预留内存余量。
           LEAN_NUM_THREADS: '3'

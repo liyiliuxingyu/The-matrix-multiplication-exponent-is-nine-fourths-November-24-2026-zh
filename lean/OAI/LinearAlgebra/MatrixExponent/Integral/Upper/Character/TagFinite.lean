@@ -1,0 +1,101 @@
+-- 本文件所属证明环节：在无除法的交换环模型中处理形式多项式、插值及上界构造；把域上的矩形指数结果提升到非平凡交换环。
+import OAI.LinearAlgebra.MatrixExponent.Integral.Upper.Coefficients
+import OAI.LinearAlgebra.MatrixExponent.Integral.Upper.Character.ChargedSeparation
+import OAI.LinearAlgebra.MatrixExponent.Integral.Upper.Character.DotsPower
+import OAI.LinearAlgebra.MatrixExponent.Integral.Upper.TagTensorWords
+
+open OAI.LinearAlgebra.MatrixExponent.Integral OAI.LinearAlgebra.TensorSpectrum
+
+/-!
+# 有限词上精确的特征标不等式
+
+每个计数纤维都通过具体的局部坐标映射从原共享输入张量的某个张量幂中选出。随后对这个有限纤维应用计入成本的分离构造。所得张量供后续标量极限使用，这里的分离与字限制都有显式论证。
+
+**英文原文**
+
+The exact finite-word character inequality
+
+Every count fiber is selected by actual local coordinate maps from a tensor
+power of the original shared-input tensor.  Charged separation is then applied
+to that finite fiber.  This is the tensor input to the later scalar limit;
+neither the separation nor the word restriction is an assumption here.
+-/
+
+noncomputable section
+
+open scoped BigOperators NNReal
+open OAI.MatrixMultiplication.Foundation
+
+namespace OAI.LinearAlgebra.MatrixExponent.Integral.Upper.TensorClass
+
+-- 读法：`f (ofTensor (A i))` 不超过 `f (ofTensor (Separation.shared A))`。用函数外延性比较等号两侧在 `x y z` 处的取值。
+theorem Character.shared_branch_le (f : Character)
+    {X Y Z : Type*} [Fintype X] [Fintype Y] [Fintype Z]
+    {s : ℕ} (A : Fin s → Tensor O X Y Z) (i : Fin s) :
+    f (ofTensor (A i)) ≤ f (ofTensor (Separation.shared A)) := by
+  have hr := CoefficientTensor.Restricts.pullback (Separation.shared A)
+    id (fun y => (i, y)) (fun z => (i, z))
+  have heq : Tensor.pullback id (fun y => (i, y)) (fun z => (i, z))
+      (Separation.shared A) = A i := by
+    funext x y z
+    simp [Tensor.pullback, Separation.shared]
+  rw [heq] at hr
+  exact f.monotone' (ofTensor_le hr)
+
+-- 读法：`1` 不超过 `f (ofTensor T)`。这里调用 `natCast_eq_ofTensor_natTensor`。
+theorem Character.one_le_of_tensor_unit (f : Character)
+    {X Y Z : Type*} [Fintype X] [Fintype Y] [Fintype Z]
+    (T : Tensor O X Y Z) (hT : ∃ x y z, T x y z = 1) : 1 ≤ f (ofTensor T) := by
+  have h := f.monotone' (ofTensor_le
+    (CoefficientTensor.unit_restricts_natTensor_one hT))
+  have hunit : ofTensor (CoefficientTensor.natTensor 1) = (1 : TensorClass) := by
+    simpa only [Nat.cast_one] using (natCast_eq_ofTensor_natTensor 1).symm
+  calc
+    1 = f.toHom (ofTensor (CoefficientTensor.natTensor 1)) := by
+      rw [hunit]
+      exact f.toHom.map_one.symm
+    _ ≤ f.toHom (ofTensor T) := h
+
+-- 读法：结论为 `((TagWords.fiber c).card : ℝ) ^ f.pX * TagWords.countWeight (fun i => (f (ofTensor (A i)) : ℝ)) c ≤ 6 * (f (ofTensor (Separation.shared A)) : ℝ) ^ N`。
+/-- 原始的字纤维成本，其中包含固定因子六。可能的计数向量有多项式多个，此处仍保留这个因子。
+
+英文原文：The original word-fiber cost, including the fixed factor six.  The
+polynomial number of possible count vectors has not yet been removed.
+-/
+theorem Character.tag_count_fiber (f : Character)
+    {X Y Z : Type*} [Fintype X] [Fintype Y] [Fintype Z]
+    {s N : ℕ} (A : Fin s → Tensor O X Y Z)
+    (c : TagWords.CountVector s N) (hc : 0 < (TagWords.fiber c).card) :
+    ((TagWords.fiber c).card : ℝ) ^ f.pX *
+        TagWords.countWeight (fun i => (f (ofTensor (A i)) : ℝ)) c ≤
+      6 * (f (ofTensor (Separation.shared A)) : ℝ) ^ N := by
+  classical
+  let M := (TagWords.fiber c).card
+  let e : Fin M ≃ {w // w ∈ TagWords.fiber c} :=
+    (Fintype.equivFinOfCardEq (Fintype.card_coe (TagWords.fiber c))).symm
+  let B := fun i : Fin M => TagTensorWords.wordBranch A (e i).val
+  -- 推导：记下中间结论 `C`：`ℝ≥0`。
+  let C : ℝ≥0 := TagWords.countWeight (fun i => f (ofTensor (A i))) c
+  have hvalue : ∀ i, f (ofTensor (B i)) = C := by
+    intro i
+    exact TagTensorWords.map_wordBranch_of_mem_fiber f A (e i).property
+  have hsep := f.charged_separation_equal hc B C hvalue
+  have hselect := TagTensorWords.restricts_power_shared_fiber_enumeration A c e
+  have hmono : f (ofTensor (Separation.shared B)) ≤
+      (f (ofTensor (Separation.shared A))) ^ N := by
+    have h := f.monotone' (ofTensor_le hselect)
+    simpa only [Character.map_power_tensor] using h
+  have hfinite : C * f (dotX M) ≤
+      6 * (f (ofTensor (Separation.shared A))) ^ N :=
+    hsep.trans (mul_le_mul_of_nonneg_left hmono (by norm_num))
+  have hreal : (C : ℝ) * f.dotXValue M ≤
+      6 * (f (ofTensor (Separation.shared A)) : ℝ) ^ N := by
+    exact_mod_cast hfinite
+  rw [f.dotXValue_eq_rpow M (Nat.succ_le_iff.mpr hc)] at hreal
+  have hC : (C : ℝ) =
+      TagWords.countWeight (fun i => (f (ofTensor (A i)) : ℝ)) c := by
+    simp [C, TagWords.countWeight]
+  rw [hC, mul_comm] at hreal
+  exact hreal
+
+end OAI.LinearAlgebra.MatrixExponent.Integral.Upper.TensorClass

@@ -9,6 +9,8 @@
 
 [完整中文注释工程](lean/README.md)收录主定理的完整导入链，共 592 个本地模块（含入口）。[三个主定理](lean/OAI/LinearAlgebra/SpectralBooks/ExactExponent.lean)分别给出方阵指数、对偶指数和矩形通式。[中文证明路径导读](lean/路径导读.md)列出了从主定理到关键引理的跳转位置。
 
+本仓库另补写了论文推论 1.2 的逐阶非标量乘除门数下界及引理 2.4 的秩界。[补充证明与定义](lean/PaperExtensions/NonscalarLowerBound.lean)
+
 ## 阅读和编辑
 
 根目录的 PDF 是编译好的中文译文。original/paper.pdf 是 111 页的英文原版，Git 对象为 d8fd1a42b9cc685eb564b49aca9e947dccce9fba。译文重新分页，跨语言定位请使用节号、定理号、公式号和图号。

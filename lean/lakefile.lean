@@ -15,3 +15,7 @@ require mathlib from git
 -- OAI 目录中只收录入口的本地依赖。默认构建会检查目录中全部 Lean 模块。
 @[default_target] lean_lib OAI where
   globs := #[.submodules `OAI]
+
+-- 本仓库补写的论文证明独立编译，构建时可复用上游 OAI 模块。
+@[default_target] lean_lib PaperExtensions where
+  globs := #[.submodules `PaperExtensions]

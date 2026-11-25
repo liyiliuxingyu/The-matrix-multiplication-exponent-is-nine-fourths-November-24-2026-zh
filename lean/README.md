@@ -33,7 +33,23 @@ $$
 
 项目固定使用 Lean 4.34.1 和 [mathlib 的提交 d13f23b](https://github.com/leanprover-community/mathlib4/tree/d13f23b723b8a846827a245b89c10fc7d3f11612)。外部依赖由 [Lake 清单](lake-manifest.json)锁定，构建时取回。OpenAI 的比较器题面另有用于对比陈述的占位文件；本目录收录的是主定理实际导入的证明。
 
-上游亦说明了形式化的边界。论文另有一个逐阶陈述：对每个 $n\ge 2$，非标量乘法门或除法门的总数至少为 $\lceil n^{9/4}/2\rceil$。上游将这一更细的门数下界列为尚未形式化。[上游对矩阵乘法形式化范围的说明](https://github.com/openai/math/blob/3344da59991ed94f9ba711217b29c1d760badfa6/lean/docs/379.md#matrix-multiplication)
+## 本仓库补充的非标量门数下界
+
+设 $F$ 为任意域，$n\ge2$。若一个形式算术电路正确计算两个 $n\times n$ 矩阵的乘积，记 $q$ 为非标量乘除门数，则论文推论 1.2 给出
+
+$$
+q\;\ge\;\left\lceil \frac{n^{9/4}}{2}\right\rceil.
+$$
+
+乘法在两个输入都非常数时计一次，除法在除数非常数时计一次。常数指在输入变量的有理函数域中等于某个基域元素。例如对输入变量 $x$，$x-x$ 是常数，$1/x$ 的除法计一次。在有限域上也按形式恒等式判定。上游发布时将这个逐阶下界列为尚未形式化，本目录的三个补充文件给出所需定义和证明。[上游发布时的说明](https://github.com/openai/math/blob/3344da59991ed94f9ba711217b29c1d760badfa6/lean/docs/379.md#matrix-multiplication)
+
+| 文件 | 读法 |
+| --- | --- |
+| [NonscalarModel.lean](PaperExtensions/NonscalarModel.lean) | 在上游电路的每个门上同时记录总门数和非标量门数。两个方向的转录表明原模型中的所有计算都可按此方式计数。 |
+| [NonscalarBilinearize.lean](PaperExtensions/NonscalarBilinearize.lean) | 对每条导线求关于左右矩阵输入的混合偏导。加减及标量操作保留已有的张成空间；每个收费门至多新增两个秩一项。得到有理函数域上的精确秩分解。 |
+| [NonscalarLowerBound.lean](PaperExtensions/NonscalarLowerBound.lean) | 把分解特化到基域的代数闭包，得到引理 2.4 的 $\operatorname{rank}_{\overline F}(T_n)\le 2q$。若某个 $n\ge 2$ 的秩严格小于 $n^{9/4}$，则上游的有限秩判据将推出该域上的方阵指数严格小于 $9/4$。结合已证的方阵指数，得到逐阶下界并向上取整。 |
+
+最终声明为 `OAI.LinearAlgebra.MatrixExponent.nonscalar_gate_lower_bound_of_build`，量化每个带门计数的计算及其全部输出。`nonscalar_gate_lower_bound` 给出相同结论的存在型表述。
 
 ## 复核源码和运行证明
 
@@ -56,4 +72,4 @@ lake exe cache get
 sh verify-lean.sh
 ```
 
-[Audit.lean](Audit.lean) 分别打印三个定理的传递公理依赖。允许列表沿用上游比较器的 `propext`、`Quot.sound`、`Classical.choice`。如果实际依赖超出列表，例如含有 `sorryAx`，审计命令会以失败退出。[源文件与导入清单](SOURCE-MANIFEST.json) · [GitHub 构建与公理审计记录](https://github.com/liyiliuxingyu/The-matrix-multiplication-exponent-is-nine-fourths-November-24-2026-zh/actions/workflows/verify-lean.yml)
+[Audit.lean](Audit.lean) 逐项打印上游三个指数定理与补充证明的传递公理依赖。允许列表沿用上游比较器的 `propext`、`Quot.sound`、`Classical.choice`。如果实际依赖超出列表，例如含有 `sorryAx`，审计命令会以失败退出。[源文件与导入清单](SOURCE-MANIFEST.json) · [GitHub 构建与公理审计记录](https://github.com/liyiliuxingyu/The-matrix-multiplication-exponent-is-nine-fourths-November-24-2026-zh/actions/workflows/verify-lean.yml)

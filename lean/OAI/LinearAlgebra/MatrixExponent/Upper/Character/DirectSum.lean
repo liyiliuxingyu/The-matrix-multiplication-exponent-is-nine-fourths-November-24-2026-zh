@@ -1,0 +1,79 @@
+-- 本文件所属证明环节：用多项式退化、带标签的张量分支、傅里叶或插值分离和张量幂构造矩阵乘法上界所需的显式张量限制。
+import OAI.LinearAlgebra.MatrixExponent.Coefficients
+import OAI.LinearAlgebra.MatrixExponent.Upper.Tensor.Powers
+
+open OAI.LinearAlgebra.MatrixExponent OAI.LinearAlgebra.TensorSpectrum
+
+/-!
+# 完全直和的特征标值
+
+每个直和项在三条腿上都有独立坐标。本文件只对这种直和使用可加性，共享第一条腿的张量另行处理。
+
+**英文原文**
+
+Character values of full direct sums
+
+Every summand has independent coordinates on all three legs.  This file does
+not apply additivity to a tensor whose first leg is shared.
+-/
+
+noncomputable section
+
+open scoped BigOperators
+open OAI.MatrixMultiplication.Foundation
+
+namespace OAI.LinearAlgebra.MatrixExponent.Upper.TensorClass
+
+-- 读法：用字段 `toFun`、`left_inv`、`right_inv` 构造 `(Fin (n + 1) × X) ≃ X ⊕ (Fin n × X)`。
+private def headTailProduct (n : ℕ) (X : Type*) :
+    (Fin (n + 1) × X) ≃ X ⊕ (Fin n × X) where
+  toFun p := Fin.cases (Sum.inl p.2) (fun i => Sum.inr (i, p.2)) p.1
+  invFun
+    | .inl x => (0, x)
+    | .inr p => (p.1.succ, p.2)
+  left_inv p := by
+    rcases p with ⟨i, x⟩
+    refine Fin.cases ?_ (fun j => ?_) i <;> rfl
+  right_inv p := by
+    rcases p with x | ⟨i, x⟩ <;> rfl
+
+-- 读法：`ofTensor (Tensor.directSum A)` 等于 `∑ i, ofTensor (A i)`。对 `n` 作归纳。
+theorem ofTensor_directSum_fin {X Y Z : Type*}
+    [Fintype X] [Fintype Y] [Fintype Z] (n : ℕ)
+    (A : Fin n → Tensor Coeff X Y Z) :
+    ofTensor (Tensor.directSum A) = ∑ i, ofTensor (A i) := by
+  classical
+  induction n with
+  | zero =>
+    have hzero : Tensor.directSum A = 0 := by
+      funext x
+      exact Fin.elim0 x.1
+    rw [hzero, ofTensor_zero]
+    simp
+  | succ n ih =>
+    rw [Fin.sum_univ_succ, ← ih (fun i => A i.succ), ofTensor_add]
+    have heq : Tensor.pullback (headTailProduct n X) (headTailProduct n Y)
+        (headTailProduct n Z)
+        (CoefficientTensor.blockSum (A 0) (Tensor.directSum (fun i => A i.succ))) =
+        Tensor.directSum A := by
+      funext x y z
+      rcases x with ⟨i, x⟩
+      rcases y with ⟨j, y⟩
+      rcases z with ⟨k, z⟩
+      refine Fin.cases ?_ (fun i => ?_) i <;>
+        refine Fin.cases ?_ (fun j => ?_) j <;>
+        refine Fin.cases ?_ (fun k => ?_) k <;>
+        simp [Tensor.pullback, headTailProduct, CoefficientTensor.blockSum,
+          Tensor.directSum, eq_comm]
+    rw [← heq]
+    exact ofTensor_pullback_equiv _ _ _ _
+
+-- 读法：`f (ofTensor (Tensor.directSum A))` 等于 `∑ i, f (ofTensor (A i))`。这里调用 `map_sum`。
+theorem Character.map_directSum_fin (f : Character) {X Y Z : Type*}
+    [Fintype X] [Fintype Y] [Fintype Z] (n : ℕ)
+    (A : Fin n → Tensor Coeff X Y Z) :
+    f (ofTensor (Tensor.directSum A)) = ∑ i, f (ofTensor (A i)) := by
+  rw [ofTensor_directSum_fin]
+  exact map_sum f.toHom _ _
+
+end OAI.LinearAlgebra.MatrixExponent.Upper.TensorClass

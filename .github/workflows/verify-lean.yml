@@ -55,6 +55,26 @@ jobs:
           fi
           df -h /
 
+      - name: 恢复上游 592 个证明模块的构建缓存
+        id: oai-cache
+        uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25 # v5
+        with:
+          path: lean/.lake/build
+          key: oai-base-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean/lean-toolchain', 'lean/lake-manifest.json', 'lean/OAI/**/*.lean') }}
+
+      - name: 构建上游证明入口
+        working-directory: lean
+        env:
+          LEAN_NUM_THREADS: '3'
+        run: lake build +OAI.LinearAlgebra.SpectralBooks.ExactExponent
+
+      - name: 保存上游证明缓存供后续扩展核验使用
+        if: steps.oai-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@caa296126883cff596d87d8935842f9db880ef25 # v5
+        with:
+          path: lean/.lake/build
+          key: ${{ steps.oai-cache.outputs.cache-primary-key }}
+
       - name: 构建证明并检查三个定理允许使用的公理
         env:
           # 标准公开 Linux 运行器有四个 CPU、16 GB 内存，为 Lean 的任务池预留内存余量。

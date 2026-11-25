@@ -1,0 +1,316 @@
+\section{接触附近的多项式乘法}\label{sec:profiles}
+
+三脚架原理将三个端点的共享标签价格 $D$ 与由臂长 $a_i>0$ 决定的下界 $D_*(a)=\sum_i a_i-(\sum_i a_i^{-1})^{-1}$ 进行比较。我们把取等号的情形称为\emph{接触}，把差值 $\Delta=D-D_*(a)$ 称为缺陷。为将接触推广到其他臂长三元组，我们需要知道仅改变一个输入宽度时价格怎样变化。多项式乘法提供了一个可以测量这种变化的张量。当一个输入增大时，其价格经过指数化后具有极限斜率和截距。命题~\ref{thm:profile-rigidity} 将这些截距确定到误差 $O(\Delta)$。第~\ref{sec:energy}~节接着比较不同配置，第~\ref{sec:contact}~节用这一比较推广等号成立的结论。
+
+在这三节中，基域均为代数闭域，价格取自然对数且距离保持固定。一个由各端点共享、具有 $q$ 个取值的标签，成本为 $D\log q$。在一个嵌入的三脚架上，将原点也纳入共享站点不改变价格。在两个端点中的任一个处添加副本均无须成本，由凸性即可控制在连接二者的测地线上任一点处添加副本的成本。
+
+\subsection{连续极限下的价格函数}
+将非空有限个输入和一个输出放在谱空间中。以 $H$ 表示价格，以 $D>0$ 表示该配置的共享标签费率。对整数长度 $L_i\ge1$，以 $M(L)$ 表示将次数分别小于 $L_i$ 的单变量多项式相乘并保留全部输出系数的张量。以下归一化同时确定了下文能量公式中的常数。
+
+\begin{lemma}\label{lem:continuum-profile}
+在各坐标均为正的区域上存在一个连续且逐坐标非减的函数 $P$，使得若 $L_i/N\to t_i>0$，则
+\[
+ H(M(L))=D\log N+P(t)+o(1),\qquad P(ct)=P(t)+D\log c.
+\]
+对 $m$ 元多项式，若各输入的总次数分别至多为 $\lfloor Nt_i\rfloor$，则对于每个固定的 $m$，相应价格为 $mD\log N+mP(t)-D\log(m!)+o(1)$。
+\end{lemma}
+
+\begin{proof}
+求值和插值给出 $H(M(L))$ 的上界 $D\log(\sum_iL_i)$。另一方面，$M(kL)$ 退化到 $k$ 个 $M(L)$ 副本的直和。事实上，将 $[0,1]$ 分为 $k$ 个等长区间，取一个连续的凸分段仿射函数，使其在每个内部分点的斜率都严格变化。次数为 $d_i$ 的输入单项式的归一化位置为 $(d_i+1/2)/(kL_i)$。赋予它一个权重，等于 $kL_i$ 乘以函数在该处的值。对于输出，在这些位置的加权平均处取函数值，乘以系数 $k\sum_i L_i$，再反号作为权重。输出权重仅依赖于次数之和。由詹森不等式可知，恰好保留所有输入位于同一区间的项。不同区间使用互不相交的输入和输出坐标，每个留下的块均为 $M(L)$ 的平移副本。权重等式定义了一个有理线性子空间。在该子空间中用有理数逼近可保持有限多个严格不等式，再作缩放即可得到整数权重。因此，对坐标作缩放并利用价格次水平集的闭性，便得到所断言的退化。
+
+对于 $L_i=\lfloor Nt_i\rfloor$，$N$ 处的归一化成本因而不小于任意固定且充分大的 $M$ 处的归一化成本加上误差项 $D\log(M\lfloor N/M\rfloor/N)$。先对 $N$ 取下极限，再对 $M$ 取上极限，即证收敛。改变 $N$ 的单位就得到对数齐次性：先对含取整的尺度作夹逼，再推广到实数 $N$。由逐坐标单调性，在 $(1\pm\epsilon)t$ 之间作夹逼即得连续性，并允许长度有 $o(N)$ 的误差。
+
+对于关于总次数的断言，将输入 $i$ 处的指数向量除以 $Nt_i$，将输出处的指数向量除以 $N\sum_i t_i$。这样各输入都在单位单纯形中的格点上变化。为用超平面切分这个区域，先去掉平面上的输入点。用定义超平面的仿射形式的正部和系数 $Nt_i$，作同样的凸加权。詹森不等式保留各输入均在同侧的项。相应输出也在同侧，故所得两个块构成直和。可在每个块内部重复这种切分。
+
+在一个经平移的、与坐标轴平行且边长为 $s$ 的立方体上，乘法沿 $m$ 个坐标分解为乘积。由单变量极限，其指数化价格除以 $N^m\exp(mP(t)/D)$ 后趋于其体积 $s^m$。平移只需重新标记指数，而将立方体边长取整改变宽度的量是 $O(1)$。由于 $\exp(H/D)$ 对直和可加，用位于单纯形内部的网格立方体填充单纯形，便得到其归一化价格的下界 $1/m!$。为证上界，从一个包围它的立方体出发，切出一个略微放大的单纯形，使所需张量的全部输入点都保留在同一单元中。在其余各单元中填入内部网格立方体。包围立方体的张量控制所需张量与全部填入立方体张量的直和。细化网格并缩小放大量，便可计入补集的全部体积，得到相符的上界 $1/m!$。取对数即得公式。
+\end{proof}
+
+\subsection{仅在两个站点可见的标签}
+
+我们还需要对一个和式给出下界，其中的块标签仅在三个站点中的两个处可见。设 $T=\sum_b T_b$，其中 $T_b\ne0$ 且 $T_b\in X\otimes Y_b\otimes Z_b$；诸 $Y_b$ 在 $Y$ 处构成直和，诸 $Z_b$ 在 $Z$ 处构成直和。对块标签上的任一概率分布 $q$，记 $\operatorname{Ent}(q)=-\sum_b q_b\log q_b$，则
+\begin{equation}
+ H(T)\ge\sum_b q_b H(T_b)+d(Y,Z)\operatorname{Ent}(q).
+ \label{eq:pair-entropy}
+\end{equation}
+为看出熵项的来源，取有理概率分布 $q$ 和幂次 $n$，使所有 $nq_b$ 都是整数。在 $Y$ 和 $Z$ 处保留类型为 $q$ 的 $M=n!/\prod_b(nq_b)!$ 个字。每个字的价格为 $n\sum_bq_bH(T_b)$。将文献~\cite[命题~3.1]{nine} 的共享腿分离法写成文献~\cite[命题~2.1]{lu} 的插值形式，可以把所保留张量的 $2M-1$ 个副本的直和退化为 $M$ 个字块的全直和，其中每个字块都与 $Y,Z$ 上的一条 $M$ 维连线取张量积。插值需要 $2M-1$ 个互不相同的域元素，任一代数闭域均可满足。比较两边的价格得到
+\[
+ nH(T)+D\log(2M-1)\ \ge\
+ n\sum_bq_bH(T_b)+(D+d(Y,Z))\log M ,
+\]
+其中 $D$ 为三个站点的共享标签费率。又有 $\log((2M-1)/M)\le\log2$ 以及 $n^{-1}\log M\to\operatorname{Ent}(q)$。除以 $n$ 并利用关于 $q$ 的连续性，即得式~\eqref{eq:pair-entropy}。
+
+\subsection{三角形上的斜率与截距}
+
+以 $i,j,k$ 依任意次序标记三个站点，并设各臂长 $a_i$ 均为正。置 $d_i=d(j,k)=a_j+a_k$、$D=\delta(\{i,j,k\})$，以 $P_k(x,y)$ 表示输出位于 $k$、输入在 $i$ 处宽度为 $x$ 且在 $j$ 处宽度为 $y$ 时的连续价格函数。我们以站点来标识相应的自变量。固定第一个输入，定义
+\[
+ F_{ik}(t)=\exp\bigl(P_k(t_i=1,t_j=t)/d_i\bigr).
+\]
+多项式乘法的行列式滤过和平移三块退化~\cite[引理~4.1、4.2~的证明]{nine} 给出
+\[
+ F_{ik}\text{ 为凹函数},\qquad
+ F_{ik}(3t+1)\ge 2F_{ik}(t)+F_{ij}(t).
+\]
+在第一个退化中，$j,k$ 上的一条二维连线提供两个块，$j$ 处的长度在两块中分别增加和减少一。这两个块在该对站点上构成直和。在双站点标签不等式中关于各块的概率作优化，所得相当于将两块在尺度 $d_i$ 下的指数化价格相加。这给出长度格点上的中点凹性，故在极限中得到凹性。在第二个退化中，较长的长度为 $3L_j+L_i-1$，且三个块中的一个交换 $j$ 与 $k$。由同一个双站点标签不等式和引理~\ref{lem:continuum-profile} 得到上式的第二个断言。两种退化都适用于任意特征。对第一种，乘以行列式这一映射的单射性与维数计数给出一次的克莱布施–戈尔丹行列式序列（见~\cite{kowalski}）。只须将单项式提升到该序列的滤过中。第二种使用单项式分次，反转一条腿上的次序即可识别中间的块。
+
+正的递增凹函数在无穷远处具有有限的极限斜率。将三块不等式除以 $t$，可知 $F_{ik}$ 和 $F_{ij}$ 的斜率相等。令 $S=F_{ik}+F_{ij}$，则有 $S(3t+1)\ge3S(t)$。沿 $t_n=3^n(t+1/2)-1/2$ 迭代得到 $S(t)/(t+1/2)\le \lim_{n\to\infty}S(t_n)/(t_n+1/2)$，其右端为公共斜率的两倍。因此该公共斜率为正，将其记为 $\exp(c_i/d_i)$。对这两个函数中的任一个，它与过原点且具有此斜率的直线的差均非负且递增。故由关于 $S$ 的界，存在数 $\beta_{ik},\beta_{ij}\ge0$，满足 $\beta_{ik}+\beta_{ij}\le1$，并有
+\[
+ t\le e^{-c_i/d_i}F_{ik}(t)\le t+\beta_{ik}.
+\]
+其中 $\beta_{ik}$ 是将该差除以斜率后所得的极限。特别地，当 $x$ 固定时，$P_k$ 作为 $\log y$ 的函数满足常数为 $d_i$ 的利普希茨条件，因为 $F_{ik}$ 的每个单侧导数均介于零和 $F_{ik}(t)/t$ 之间。
+
+置 $h=(\sum_i1/a_i)^{-1}$、$b_i=a_i-h$、$u_i=b_i/a_i$、$\beta_{ik}^*=a_k/d_i$ 和 $\Delta=D-D_*(a)$，其中 $D_*(a)=\sum_i a_i-h$。由于 $P_k(x,y)=D\log x+P_k(1,y/x)$ 并且 $D-d_i=b_i+\Delta$，截距界给出了对每一对宽度均有效的上包络：
+\begin{equation}\label{eq:profile-upper}
+ P_k(x,y)\le U_{ik}(x,y):=c_i+(b_i+\Delta)\log x+d_i\log(y+\beta_{ik}x).
+\end{equation}
+
+\begin{proposition}[接触附近的连续价格函数]\label{thm:profile-rigidity}
+有 $\Delta\ge0$。若 $\min_i u_i\ge\eta>0$，则存在一个对三个站点公共的数 $C$，使
+\begin{equation}\label{eq:src2}
+ d_i(\beta_{ik}-\beta_{ik}^*)=O_\eta(\Delta),\qquad
+ c_i+b_i\log u_i=C+O_\eta(\Delta).
+\end{equation}
+在扇区 $y/x\ge u_j/u_i$ 内，有
+\begin{equation}\label{eq:src3}
+ 0\le U_{ik}(x,y)-P_k(x,y)\le O_\eta(\Delta).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+令 $E_{ik}=U_{ik}-P_k$ 和 $z_{ik}=d_i(\beta_{ik}-\beta^*_{ik})$。对 $y$ 求导，并用 $F_{ik}$ 的极限斜率作为其导数的下界，得到
+\[
+ \partial_y P_k(x,y)\ \ge \frac{d_i}{y+\beta_{ik}x}\exp(E_{ik}(x,y)/d_i).
+\]
+交换 $i,j$ 可得第二个界。在可微点有 $x\partial_xP_k+y\partial_yP_k=D$。这些函数局部利普希茨，故即使某个导数在 $(x,y)=(u_i,u_j)$ 处不存在，仍可利用连续性在该点给出两个导数界之和。在该点有 $u_j+u_i\beta^*_{ik}=1$ 和 $u_jd_i+u_id_j=D_*$。对 $r=u_i z_{ik}/d_i$ 使用 $(1+r)^{-1}=1-r+r^2/(1+r)$，并对 $s\ge0$ 使用 $e^s\ge1+s$。由于 $\eta\le u_j+u_i\beta_{ik}\le2$，存在 $c_\eta>0$，使得
+\[
+ \frac{\Delta}{u_iu_j}\ge -(z_{ik}+z_{jk})+
+ c_\eta\left(E_{ik}+E_{jk}
+           +\frac{z_{ik}^2}{d_i}+\frac{z_{jk}^2}{d_j}\right),
+\]
+其中所有差值均取在指定宽度处。由于 $\beta^*_{ik}+\beta^*_{ij}=1$，各行和 $z_{ik}+z_{ij}$ 均非正。对所有输出站点 $k$ 求和得到 $\Delta\ge0$，且每一个非负余项均以 $O_\eta(\Delta)$ 为界。因此每个行和介于 $-O_\eta(\Delta)$ 和零之间。由上式，每一列的和至少为 $-O_\eta(\Delta)$。由于各列的总和等于各行的总和，每个列和也至多为 $O_\eta(\Delta)$。
+
+现比较 $P_k(u_i,u_j)$ 的两个包络，得到
+\[
+ c_i+b_i\log u_i+u_i z_{ik}
+ =c_j+b_j\log u_j+u_j z_{jk}+O_\eta(\Delta).
+\]
+其中对数的泰勒余项由 $z_{ik}^2/d_i$ 和 $z_{jk}^2/d_j$ 控制。由行、列估计可知，在相差 $O_\eta(\Delta)$ 的意义下，各项 $(z_{12},z_{13},z_{23},z_{21},z_{31},z_{32})$ 依次交替取值 $z_{12}$ 和 $-z_{12}$。将对应于 $(i,j)=(1,2),(2,3),(3,1)$ 的三个包络比较式相加，诸项 $c_i+b_i\log u_i$ 抵消，余下 $2(u_1+u_2+u_3)z_{12}=O_\eta(\Delta)$。这证明了式~\eqref{eq:src2}。差值 $E_{ik}$ 仅依赖于 $y/x$。$t+\beta_{ik}$ 与 $e^{-c_i/d_i}F_{ik}(t)$ 的差随 $t$ 递减，而后一个函数递增。因此两者之比的对数递减，从而证明式~\eqref{eq:src3}。
+\end{proof}
+
+例如，在单位三脚架上出现接触时，预期的截距为 $\beta^*_{ik}=1/2$，且 $u_i=u_j=2/3$。因此，对 $t\ge1$ 有 $e^{-c_i/d_i}F_{ik}(t)=t+1/2$。更一般地，当一条臂趋于无穷而其他两条臂的长度仍在 $(0,\infty)$ 的一个紧子集中时，式~\eqref{eq:src2} 中的估计仍然一致。若一条臂的长度为零，则由直径界得到 $D\ge D_*(a)$。
+
+\section{能量与径向收缩}\label{sec:energy}
+
+固定一个输出及一个由非空有限个输入组成的集合 $A$，所有端点的共享标签费率为 $D>0$。若每单位输入宽度的成本为 $\ell_i>0$，定义能量
+\begin{equation}\label{eq:energy-widths}
+ Q_A(\ell)=D+\sup_{t_i>0}\bigl(P(t)-\ell\cdot t\bigr).
+\end{equation}
+由求值界可知，它取有限值，关于 $\ell$ 为凸函数，并由 $P$ 的对数齐次性满足 $Q_A(c\ell)=Q_A(\ell)-D\log c$。加上公共附加费 $s$，相当于对一个候选宽度向量加上 $s\sum_i t_i$ 的惩罚。因此，最优能量沿成本共同增加方向的斜率度量了总宽度。我们要用到有限差 $Q_A(\ell)-Q_A(\ell+s\mathbf1)$。引理~\ref{lem:energy-compare} 表明，当各输入移向输出，且各自的成本成比例减少时，该能量降幅只能减小。我们先对齐次多项式的次数证明这一比较；在该情形下可以把一个输入从一次多项式乘法转移到另一次乘法；再对这些次数进行缩放，恢复 $Q_A$。
+
+为比较不同配置，先对齐次多项式的每单位次数收取成本 $f_i>0$。记 $M_m^{\mathrm{hom}}(r)$ 为 $m$ 元齐次多项式的乘法，输入次数为 $r=(r_i)_{i\in A}$。定义
+\[
+ B_A(f)=\sup_{m\ge1,\ r_i\in\mathbb Z_{\ge0}}
+ \frac{H(M_m^{\mathrm{hom}}(r))-\sum_i f_i r_i}{m}.
+\]
+此量有限。用输出空间的对偶空间中由求值泛函组成的一组基进行求值和插值，可知秩至多为输出空间的维数。令 $R=\sum_i r_i$、$q=\exp(-\min_i f_i/D)$，则扣除成本后的价格在尺度 $D$ 下的指数值至多为 $\binom{m-1+R}{R}q^R\le(1-q)^{-m}$。若要求 $m$ 是指定整数的倍数，上确界仍不变。事实上，取互不相交的变量组，原张量的任意次幂都可由次数合并后的乘法经限制得到。
+
+\begin{lemma}[添加一个输入]\label{lem:increasing-returns}
+若 $\varnothing\ne A'\subseteq A$ 且 $s>0$，则
+\begin{equation}\label{eq:src5}
+ B_A(f)-B_A(f+s\mathbf1)\ge
+ B_{A'}(f)-B_{A'}(f+s\mathbf1),
+\end{equation}
+其中成本分别限制在相应的输入集上。如果限制后配置中的所有站点重合，则其能量为零。
+\end{lemma}
+
+\begin{proof}
+只需添加一个输入 $e$。将待证式改写为右边等于 $B_{A'}(f)+B_A(f+s\mathbf1)$ 的形式，并选择两次乘法分别逼近这两个上确界。通过在分开的变量组上取幂，可以使两者使用同一数目 $m$ 的变量。将其变量分别记为 $u=(u_1,\ldots,u_m)$ 和 $v=(v_1,\ldots,v_m)$。在每个公共输入处，这两次乘法的张量积接收关于 $(u,v)$ 的、具有指定双次数的双齐次多项式。在 $e$ 处，它接收次数为 $q$ 的多项式 $h(v)$。记包含 $q$ 在内的总双次数为 $(U,V)$。
+
+我们将这个张量积实现为若干乘法的和，其中 $e$ 改属于 $u$ 变量组。将 $h(v)$ 改记为 $h(u)$，并在公共输入处以 $u-v$ 替换 $u$。相乘后，在输出处以 $u+v$ 替换 $u$，再投影到双次数 $(U,V)$。对公共输入所作的两次代换相互抵消，且 $h(u+v)$ 中在投影后保留的项只有 $h(v)$。该恒等式不涉及除法。在相乘前将中间输入按双次数展开。如果公共输入总共有 $k$ 个单位次数从 $u$ 转到 $v$，则中间的 $v$ 次数为 $V-q+k$。最后的代换只会增大这个次数，因此能被保留的分块必有 $k\le q$。每个输入处的总次数不变。因此，每个分块的基本成本不变，其在 $v$ 上的附加费至多为 $sV$。每个分块都可分解为含全部输入的 $u$ 变量乘法与含输入 $A'$ 的 $v$ 变量乘法，再加上局部的预处理和后处理。
+
+将这一构造用于各变量组有 $nm$ 个变量的幂，并将所有次数乘以 $n$。由于 $A$ 固定，双次数分块的数目关于 $n$ 至多按多项式增长。普通和的价格界仅比最大分块价格多 $O(\log n)$。除以 $nm$ 再取极限，右侧便以 $B_A(f)+B_{A'}(f+s\mathbf1)$ 为界，结论得证。
+\end{proof}
+
+\subsection{从次数到宽度}
+
+每单位次数收费 $\ell_i/N$，就使 $N$ 量级的次数对应于常数量级的宽度。引理~\ref{lem:continuum-profile} 中对总次数受限多项式出现的因子 $1/m!$，解释了式~\eqref{eq:energy-widths} 中的加法常数 $D$。
+
+\begin{lemma}[次数能量的连续极限]\label{lem:continuum-energy}
+对共享标签费率为 $D>0$ 的配置，有
+\begin{equation}\label{eq:src6}
+ B_A(\ell/N)=D\log N+Q_A(\ell)+o(1)
+ \qquad(N\longrightarrow\infty).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+以 $S_m(r)$ 表示各输入总次数分别\emph{至多}为 $r_i$ 的多项式乘法。用其价格减去次数成本后除以 $m$，得到 $B_A$ 的一个下界。事实上，在互不相交的变量组上取 $n$ 个副本，可由 $nm+1$ 个变量、次数为 $nr_i$ 的齐次乘法经限制得到：用最后一个变量作齐次化，再在输出处令其为一。因此 $B_A(f)\ge n(H(S_m(r))-f\cdot r)/(nm+1)$，再令 $n\to\infty$。取 $r_i=\lfloor Nm t_i\rfloor$，引理~\ref{lem:continuum-profile} 给出
+\[
+ \liminf_{N\to\infty}(B_A(\ell/N)-D\log N)
+ \ge P(t)-\ell\cdot t+D\bigl(\log m-m^{-1}\log(m!)\bigr).
+\]
+最后一项趋于 $D$。对 $t$ 取上确界即得所需下界。
+
+为证上界，取整数 $N$。在定义 $B_A$ 的上确界中可使用 $Km$ 个变量，将它们分成 $K$ 组，每组 $m$ 个。在每个输入处，通过分箱 $[(b_i-1)N,b_iN)$（$b_i\ge1$）记录各组变量的总次数。对固定的分箱模式，相应的乘法可以由各组的 $S_m(Nb)$ 的乘积经限制得到，而每组的成本至少为 $\sum_i\ell_i(b_i-1)$。对各模式求和所得的价格，以各自价格在尺度 $D$ 下取指数、求和再取相应对数后的结果为界。各组独立地对所有箱求和，可将该和放大成一个 $K$ 次幂。对其取对数，除以 $Km$ 并取上确界，得
+\[
+ B_A(\ell/N)\le \frac Dm\log\sum_{b\in\mathbb Z_{>0}^A}
+ \exp\left(\frac{H(S_m(Nb))-\sum_i\ell_i(b_i-1)}{D}\right).
+\]
+固定 $m$，从和式提出因子 $N^m$ 后，由输出维数的界，各项均由某个常数乘以 $(m+\sum b_i)^m\exp(-\ell\cdot b/D)$ 控制。利用引理~\ref{lem:continuum-profile} 和控制收敛定理，得到 $B_A(\ell/N)-D\log N$ 的上极限至多为
+\[
+ D\left(\log m-\frac{\log(m!)}m\right)
+ +\frac{\sum_i\ell_i}m+
+ \frac Dm\log\sum_b\exp\left(\frac{mP(b/m)-\ell\cdot b}{D}\right).
+\]
+对于 $0<\epsilon<1$，用 $P(t)-(1-\epsilon)\ell\cdot t$ 的上确界估计最后一项，余项至多为 $(D/m)\log\sum_b\exp(-\epsilon\ell\cdot b/D)$。先令 $m\to\infty$，再令 $\epsilon\downarrow0$，并应用 $Q_A$ 的尺度变换关系。由关于 $N$ 的单调性，在实数尺度下也得到相同极限。
+\end{proof}
+
+\begin{lemma}[径向收缩]\label{lem:energy-compare}
+将每个输入 $i$ 沿其通向输出的测地线移动，使它距输出的距离为原距离的 $0<\lambda_i\le1$ 倍。以 $A'$ 表示所得配置，并令 $\ell'_i=\lambda_i\ell_i$。对于 $s>0$，若两个配置的共享标签费率均为正，则有
+\begin{equation}\label{eq:src7}
+ Q_A(\ell)-Q_A(\ell+s\mathbf1)\ge
+ Q_{A'}(\ell')-Q_{A'}(\ell'+s\mathbf1)
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+在某个输入自身的站点处以相同成本复制该输入，可以作局部乘法，因而 $B$ 不变。同样，在输出处以零成本添加一个输入，可以在输出处作局部乘法，因而 $B$ 不变。在这两个断言中，取新增输入的次数为零就给出反向不等式。对于每个固定的多重次数，随着新增输入沿测地线移动，价格是凸函数，被扣除的成本则为仿射函数。因此，若新增输入的径向距离比例为 $\lambda_i$、成本至少为 $\lambda_i f_i$，则 $B$ 不变。先添加一个，再逐个添加，即得对所有新增输入的结论。该论证既适用于 $f=\ell/N$，也适用于将每项成本增加 $s/N$ 之后的情形，因为 $\lambda_i\ell_i+s\ge
+\lambda_i(\ell_i+s)$。以规定的成本插入各移动后的输入，利用引理~\ref{lem:increasing-returns} 删除原来的输入。所得配置的能量降幅以原配置的能量降幅为界。在式~\eqref{eq:src6} 中令 $N\to\infty$。首项 $D\log N$ 在每个配置中分别抵消，因而证明了式~\eqref{eq:src7}。
+\end{proof}
+
+\section{等号在三脚架上的传播}\label{sec:contact}
+
+固定三条无限射线，它们构成以 $O$ 为原点的度量三脚架。这些射线上的价格在同时作径向伸缩时是齐次的。对臂长为 $a_1,a_2,a_3$ 的三个端点，命题~\ref{thm:profile-rigidity} 给出 $D(a)\ge D_*(a)$。现在证明命题~\ref{prop:tripod} 的刚性断言：只要在一个臂长三元组处取等号，就必然在每一个三元组处都取等号。若固定其中两条臂的正长度，而第三条臂的长度趋于无穷时渐近地取到等号，也有同样的结论。
+
+取长度的倒数作为坐标：
+\[
+ v_i=1/a_i,\qquad h(a)=\frac{1}{v_1+v_2+v_3},\qquad
+ \Delta(v)=D(a)-D_*(a).
+\]
+一条无穷长臂现在对应于一个坐标面。我们先比较缺陷沿从 $v$ 出发的三条坐标射线的积分。在 $\Delta$ 的一个零点处，这些积分相等。径向齐次性继而迫使其公共值为零。
+
+\subsection{比较三个方向的积分}
+
+由连续价格函数给出的下界及经过 $O$ 的生成树可得 $D_*(a)\le D(a)\le\sum_i a_i$。等价地，
+\begin{equation}\label{eq:defectbound}
+ 0\le \Delta(v)\le\frac{1}{v_1+v_2+v_3},\qquad
+ \Delta(rv)=r^{-1}\Delta(v)\quad(r>0).
+\end{equation}
+在各坐标均为正的区域上，$\Delta$ 局部利普希茨且局部半凸。半凸是指，对于给定的小球，存在适当的 $C$，加上 $C|v|^2$ 后函数在小球上为凸函数。事实上，由联合测地凸性，$D$ 关于臂长为凸函数。将单个端点移动距离 $t$，$D$ 的改变量至多为 $t$。变量替换 $a_i=1/v_i$ 在内部的紧集上具有有界的一、二阶导数，且 $D_*$ 在其中光滑。
+
+当 $v_1\downarrow0$ 时，由同一传输界，函数 $D(a)-\sum_i a_i$ 非增，并以 $-h(a)$ 为下界。由于 $h(a)$ 在此也有极限，$\Delta$ 可延拓到开面 $v_1=0$。当另外两个变量在 $(0,\infty)$ 的紧子集内变化时，关于它们的利普希茨常数和半凸性常数可一致选取，包括 $v_1\downarrow0$ 的情形。因此上述延拓连续，且具有相同的切向正则性。其余各面只须重新编号即可处理。
+
+对每个内点 $v$ 及坐标向量 $e_i$，置
+\[
+ J_i(v)=\int_0^\infty
+ \left[\Delta(v+t e_i)-\mathbf 1_{\{t\le1\}}\Delta(v)\right]
+       \frac{dt}{t}.
+\]
+由局部利普希茨连续性，减去的项使积分在零处收敛。式~\eqref{eq:defectbound} 保证在无穷远处收敛。我们将证明估计
+\begin{equation}\label{eq:src10}
+                   |J_i(v)-J_j(v)|\le C\Delta(v).
+\end{equation}
+其中 $C$ 直至每个开面均局部一致。在一个面上，对该面的两个切向方向也有相同估计。
+
+\paragraph{能量的一个导数。}
+固定 $v$，以 $a_i=1/v_i$ 为三个输入端点的位置，将输出置于 $O$。记式~\eqref{eq:energy-widths} 中相应的能量为 $Q$。对变量 $s\in(0,\infty)^3$，置
+\[
+ G_v(s)=Q\big((a_i s_i)_i\big)+\sum_i a_i\log s_i
+                   -h(a)\log\Big(\sum_i s_i\Big).
+\]
+将 $s$ 沿 $v$ 方向移动，会使每一项成本 $a_i s_i$ 均以单位速率增加。在同一三脚架上，将端点 $i$ 置于距原点 $r/s_i$ 处，且每个输入的成本均为 $r$。在臂 $i$ 上，成本与距离之比仍为 $s_i$。对于小的 $r$，比较配置位于固定配置之内；对于大的 $r$，则位于其外。由引理~\ref{lem:energy-compare}，内、外配置的能量降幅分别从下、上两个方向给出固定配置降幅的界。
+
+在比较配置处，共享标签费率为 $rD((1/s_i)_i)$。将 $O$ 加入原来的三个标签站点无需额外成本。因此，由 $Q$ 的尺度变换律，将所有成本由 $r$ 提高到 $r+t$ 会使能量降低 $rD((1/s_i)_i)\log(1+t/r)$。除以 $t$ 后，当 $t\downarrow0$ 时，上、下界均趋于 $D((1/s_i)_i)$。对 $G_v$ 中两个显式对数项求导，会增加 $\sum_i1/s_i-1/\sum_i s_i=D_*((1/s_i)_i)$。因此
+\begin{equation}\label{eq:src8}
+       \left.\frac{d}{dt}\right|_{t=0+}G_v(s+tv)=-\Delta(s).
+\end{equation}
+有限值凸函数 $Q$ 局部利普希茨，因此这一恒等式可以沿 $v$ 方向的任意射线积分。
+
+\paragraph{从坐标轴附近出发的射线。}
+令 $s_i=1$、$s_j=s_k=\varepsilon$。回顾第~\ref{sec:profiles}~节中的 $b_i=a_i-h(a)$ 以及截距 $c_i$。记 $B_i=b_i+\Delta(v)$、$d_i=a_j+a_k$。$G_v$ 的极限为
+\begin{equation}\label{eq:src9}
+           \lim_{\varepsilon\downarrow0}G_v(s)
+                =c_i+B_i\log\frac{B_i}{a_i}.
+\end{equation}
+为证上界，设三个输入宽度为 $x,t_j,t_k$，并将输出位于 $O$ 时的连续价格函数记为 $P(x,t_j,t_k)$。点 $O$ 将从 $j$ 到 $k$ 的线段按 $a_j:a_k$ 分割。由关于输出位置的凸性，$P$ 不超过输出分别位于 $k$ 和 $j$ 时两个函数的加权平均，权重分别为 $a_j/d_i$ 和 $a_k/d_i$。在任一端点处，位于输出站点的输入可通过局部乘法并入。由式~\eqref{eq:profile-upper} 和 $\beta_{ik},\beta_{ij}\le1$ 得
+\[
+ P(x,t_j,t_k)\le c_i+B_i\log x
+                +a_j\log(t_j+x)+a_k\log(t_k+x).
+\]
+在能量公式中取成本 $(a_i,\varepsilon a_j,\varepsilon a_k)$。将变量换为 $x,t_j+x,t_k+x$，使得当 $\varepsilon$ 较小时，$x$ 的有效成本等于 $a_i-\varepsilon d_i>0$。分别对三项取最大值，并利用 $B_i+d_i=D(a)$，得
+\[
+ Q\le c_i+B_i\log\frac{B_i}{a_i-\varepsilon d_i}
+                  +d_i\log(1/\varepsilon).
+\]
+
+为得出相符的下界，取 $x=B_i/a_i$、$t_j=1/\varepsilon$、$t_k=x+t_j$。在 $O$ 处抽取乘积的单个系数。选取互补的次数并反转 $k$ 处的基的次序，就可把此系数写成第三个输入与前两个输入的乘积的配对。端点相差一的取整不改变连续价格函数。因此 $P(x,t_j,t_k)\ge P_k(x,t_j)$，由第~\ref{sec:profiles}~节的渐近斜率知
+\[
+       P_k(x,t_j)=c_i+B_i\log x+d_i\log(1/\varepsilon)+o(1).
+\]
+这样选取的总宽度成本趋于 $B_i+d_i=D(a)$，恰好抵消能量公式中的加法常数。利用 $G_v$ 中的对数项减去 $d_i\log(1/\varepsilon)$，就得到式~\eqref{eq:src9}。
+
+\paragraph{通过积分作比较。}
+从 $e_i$ 和 $e_j$ 附近分别引出两条射线，其起点取式~\eqref{eq:src9} 中所用的形式。在两条射线上沿 $v$ 方向对式~\eqref{eq:src8} 积分，再相减。由于 $G_v(rs)=G_v(s)-\Delta(v)\log r$ 且 $G_v$ 在 $v$ 处连续，两条射线末端的 $G_v$ 值之差在无穷远处趋于零。现令两个起点分别趋于 $e_i$ 和 $e_j$。由式~\eqref{eq:defectbound}，两个被积函数在零附近一致有界。由齐次性及 $v$ 附近的利普希茨界，它们在无穷远处的差为 $O(t^{-2})$。因此，式~\eqref{eq:src9} 中两个坐标轴极限之差等于
+\[
+ \int_0^\infty\big[\Delta(e_i+tv)-\Delta(e_j+tv)\big]\,dt
+    =J_i(v)-J_j(v).
+\]
+最后一个恒等式用到了 $\Delta(e_i+tv)=t^{-1}\Delta(v+t^{-1}e_i)$ 及代换 $u=1/t$。
+
+由式~\eqref{eq:src2}，诸量 $c_i+b_i\log(b_i/a_i)$ 之差为 $O(\Delta(v))$。将 $b_i$ 替换为 $B_i$ 也只使每一项改变 $O(\Delta(v))$。事实上，当另外两条臂长的倒数保持在 $(0,\infty)$ 的紧子集中且 $v_i$ 趋于零时，$b_i/a_i$ 有与零隔开的正下界。更一般地，在每个开面上的每一点附近，三个比值都有与零隔开的正下界。由式~\eqref{eq:defectbound} 另有 $B_i/a_i\le1$。因此在所考察的区间内，函数 $b\mapsto b\log(b/a_i)$ 的导数一致有界。这就证明了具有所述一致性的式~\eqref{eq:src10}。在一个面的两个切向方向上，由零处的切向利普希茨界和无穷远处的式~\eqref{eq:defectbound} 可应用控制收敛定理。
+
+\subsection{强极小值原理}
+
+\begin{proof}[命题~\ref{prop:tripod} 的证明续完]
+假设 $\Delta(v)=0$。在内部或在一个开面上讨论，只考虑正坐标，重新编号为 $1,\ldots,k$。由式~\eqref{eq:src10}，所有 $J_i(v)$ 都等于同一个 $J\ge0$。同时伸缩所有坐标，可得精确的变化关系 $J_i((1+\varepsilon)v)=J/(1+\varepsilon)$。为将这一降幅与各射线上的变化比较，将伸缩改为逐坐标进行，其中间点为
+\[
+          v^i=v+\varepsilon\sum_{j\le i}v_j e_j
+               \qquad(0\le i\le k).
+\]
+在每个中间点，从 $J_i$ 换为 $J_{i+1}$ 的误差以 $C\Delta(v^i)$ 为界。因此
+\[
+ S_\varepsilon=\sum_{i=1}^k\big(J_i(v^i)-J_i(v^{i-1})\big)
+   =\frac{J}{1+\varepsilon}-J+
+                  O\!\left(\max_{0<i<k}\Delta(v^i)\right).
+\]
+记 $K=\limsup_{\varepsilon\downarrow0}
+\max_{0<i<k}\Delta(v^i)/\varepsilon$，它由局部利普希茨连续性可知是有限的，并置 $g_i(t)=\Delta(v+te_i)$。我们断言
+\begin{equation}\label{eq:src11}
+ -J+CK\ \ge\ \liminf_{\varepsilon\downarrow0}
+              \frac{S_\varepsilon}{\varepsilon}
+        \ \ge\ \sum_{i=1}^k v_i\int_0^\infty g_i'(t)\,\frac{dt}{t}.
+\end{equation}
+
+为证明第二个不等式，在所有 $k$ 个积分中使用同一变量 $t$。对几乎所有 $t>0$，$\Delta$ 在 $[v^{i-1}+te_i,v^i+te_i]$ 上的增量除以 $\varepsilon$ 后趋于 $v_i g_i'(t)$。事实上，加上一个局部二次函数后，该线段上的斜率介于沿 $e_i$ 方向、以任意固定小长度取得的相邻线段的斜率之间。令 $\varepsilon$ 趋于零，再在 $g_i$ 可微的每一点处缩短相邻线段。对于 $t\le1$ 而减去的未平移增量，其和为 $\Delta((1+\varepsilon)v)-\Delta(v)=0$。
+
+这些被减去的项也控制了零处的奇性。将每个平移后的增量与其未平移的增量配对。由于两线段长度和方向相同，加上一个局部二次函数后，平移后的增量不小于未平移的增量。减去这一二次函数，得到差值的下界 $-C\varepsilon t$。当 $t$ 很大时，将起点移动 $\varepsilon v_i e_i$，会使相应臂长改变 $O(\varepsilon t^{-2})$。用传输可控制 $D$ 的改变量，由 $D_*$ 的公式可得相同的界。除以 $\varepsilon t$ 后，这些界一致控制负部。在一个面上，可对切向变量作相同估计。由法图引理，式~\eqref{eq:src11} 得证。每个极限积分的负部均有限，因为 $g_i$ 在零附近半凸且在零处取最小值。
+
+右导数 $g_i'(0+)$ 存在且非负。如果某个右导数为正，那么由半凸性，$g_i'$ 在零附近有正下界，从而式~\eqref{eq:src11} 中的相应积分发散到正无穷。因此每个 $g_i'(0+)$ 都为零。由半凸性，$\Delta$ 在 $v$ 处的方向导数作为方向的函数是次线性的；又因该点为极小值点，方向导数非负。它在各个正坐标向量上为零，因此在这些向量的正锥上都为零。特别地，$K=0$。分部积分得到
+\[
+       -J\ \ge\ \sum_{i=1}^k v_i
+                    \int_0^\infty\frac{g_i(t)}{t^2}\,dt\ \ge\ 0.
+\]
+因为在零处有 $g_i(t)=o(t)$，而在无穷远处有式~\eqref{eq:defectbound}，故边界项消失。由于 $J\ge0$，连续性给出对每个 $i$ 和 $t\ge0$ 都有 $g_i(t)=0$。依次沿各条坐标射线使用相同论证，可到达逐坐标不小于 $v$ 的任意一点。任一正三元组，或同一开面上的任一点，都可以通过伸缩进入这一区域。于是，由齐次性，缺陷在最初所在的整个内部或整个开面上为零。
+
+最后还需把一个面上的零点移到内部。设 $v_1=0$ 且 $\Delta(v)=0$。在 $v^{(r)}=v+re_1$ 处，切向控制收敛给出 $J_2(v^{(r)})\to J_2(v)=0$。由一致估计式~\eqref{eq:src10} 及 $\Delta$ 的连续性，同样有 $J_1(v^{(r)})\to0$。虽然在面上只有切向利普希茨界，但由传输可知 $\Delta-h=D-\sum_i a_i$ 关于 $v_1$ 非减。由于 $h$ 的法向导数在该点附近有界，
+\[
+ \Delta(v^{(r)}+te_1)-\Delta(v^{(r)})\ge-Ct \qquad(0<t\le1).
+\]
+在法向积分中应用法图引理，得到 $\int_0^\infty\Delta(v+te_1)\,dt/t\le0$。连续且非负的被积函数在每个 $t>0$ 处均为零，给出了上文所需的内部零点。特别地，在上述任一情形下发生接触的齐次三脚架都满足 $D(1,1,1)=3-1/3=8/3$，这就是第~\ref{sec:boundary}~节所用的等臂值。
+\end{proof}
+
+\subsection{价格取最大值时的三条连线长度}
+
+命题~\ref{prop:tripod} 中无条件成立的不等式给出了已知方阵上界的一个几何证明，并确定了取等号时连线的价格。在三个站点上取尺度一，因而三者共享的标签费率为一。对 \(i\ne j\)，将三条连线的长度分别写作 \(a_i+a_j\)。由三角不等式，\(a_i\ge0\)。在代数闭域上，上述命题与算术平均数–调和平均数不等式给出
+\begin{equation}\label{eq:arm-perimeter}
+  1\ \ge\ \sum_i a_i-\Big(\sum_i a_i^{-1}\Big)^{-1}
+     \ \ge\ \frac89\sum_i a_i .
+\end{equation}
+若有一条臂长度为零，式中的倒数项取零。转到代数闭包时三条连线的联合取值保持不变（第~\ref{sec:prices-background}~节），所以同样的界对任意域都成立。由于 \(T_n\) 在每一边上由一条 \(n\) 维连线构成，每个谱点赋予它的值为 \(n^{2\sum_i a_i}\le n^{9/4}\)。由Strassen 关于渐近秩的最大值公式~\cite{spectrum}，即得上界。再如引理~\ref{lem:specialize} 中那样作固定规模的递归，就得到 \(\omega_F\le9/4\)。
+
+\begin{corollary}\label{cor:extremal-price}
+固定 \(n\ge2\) 及域 \(F\)。在每个使 \(T_n\) 的值达到最大的尺度一谱点，三条连线的长度全都为 \(3/4\)。这样的谱点存在，而且对于任意正整数 \(a,b,c\)，它赋予 \(T_{a,b,c}\) 的值均为 \((abc)^{3/4}\)。
+\end{corollary}
+
+\begin{proof}
+谱最大值可以达到。推论~\ref{cor:tight} 确定其值为 \(n^{9/4}\)，因此 \(\sum_i a_i=9/8\)。式~\eqref{eq:arm-perimeter} 中的两个不等式都必须取等号。三条臂的长度都为正，因为若有一条为零，就会得到 \(1\ge9/8\)。算术平均数等于调和平均数给出对每个 \(i\) 均有 \(a_i=3/8\)。因此每条连线的费率都是 \(3/4\)。矩形张量具有三条维数分别为 \(a,b,c\) 的连线，其值等于三者的值之积。
+\end{proof}

@@ -1,0 +1,191 @@
+\section{球面张量的价格}\label{sec:sphere}
+
+给定各条腿的维数，张量的价格最高能有多高？在站点 \(o\) 制备张量，再把每条腿沿连线送往其目的地 \(x_i\)。按对数价格 \(H\) 计，一条连线的费用等于其长度乘以其维数的对数。特别地，对于第~\ref{sec:fermions} 节中的每个非零球面张量，都有
+\begin{equation}\label{eq:sphere-transport}
+ H(C(\mathbf h;\mathbf z);x_1,\ldots,x_k)
+ \le \sum_{i=1}^k d(o,x_i)\log\dim V_{h_i}.
+\end{equation}
+标记点 \(z_i\) 决定张量的分量，站点 \(x_i\) 决定其价格。若各条腿的对数维数至多为 \(Na_i\)，则取费用最低的中心可得上界 \(N\inf_o\sum_i a_i d(o,x_i)\)。在贯穿本节的假设 \(\omega_F<9/4\) 下，球面张量的价格在首阶上达到这个上界（推论~\ref{cor:sphere-caps}）。
+
+我们还需要知道，在给定配置下，哪些能量会使球面张量的价格高昂。为此，对每条腿的宽度施加二次惩罚。宽度的平方正比于碰撞阶数所记录的能量。定理~\ref{thm:sphere} 用各站点到加权重心的距离刻画最优宽度，其中权重由惩罚系数确定。
+
+固定代数闭域 \(F\)、互不相同的点 \(z_1,\ldots,z_k\in F\)，以及 \(F\) 上的完备 CAT(0) 谱空间 \(X\) 中的站点 \(\mathbf x=(x_1,\ldots,x_k)\)，其中 \(k\ge2\)。以 \(H_{\mathbf x}\) 表示在这一配置下的价格，以 \(D\) 表示其尺度。令 \(c=\pi/\sqrt3\) 为引理~\ref{lem:dimension} 中的常数。对整数 \(N\ge1\)，将能量 \(h\) 的归一化宽度定义为 \(w_N(h)=c\sqrt h/N\)。给定正惩罚系数 \(\lambda_1,\ldots,\lambda_k\)，令
+\begin{align}
+ B_N&=\max_{\mathbf h}
+ \left\{N^{-1}H_{\mathbf x}(C(\mathbf h;\mathbf z))-
+                      \sum_i\lambda_iw_N(h_i)^2\right\},
+ \label{eq:sphere-objective}\\
+ E&=\min_{o\in X}\sum_i\frac{d(o,x_i)^2}{4\lambda_i}.
+ \label{eq:sphere-energy}
+\end{align}
+取最大值时可以略去零张量。式~\eqref{eq:sphere-energy} 中唯一的极小点 \(o\) 是权重正比于 \(1/\lambda_i\) 的重心。它属于各 \(x_i\) 的闭凸包。记 \(r_i=d(o,x_i)\)，并记 \(\rho_N=\sqrt{\log(2N)/N}\)。
+
+\begin{theorem}[球面张量的价格]\label{thm:sphere}
+假设 \(\omega_F<9/4\)，则
+\begin{equation}\label{eq:sphere-estimate}
+       0\le E-B_N\le O(\rho_N).
+\end{equation}
+对每个 \(N\)，任取达到最大值的能量组 \(\mathbf e\)，都有
+\begin{equation}\label{eq:sphere-profile}
+ w_N(e_i)=\frac{r_i}{2\lambda_i}+O(\sqrt{\rho_N}),
+ \qquad
+ \frac{H_{\mathbf x}(C(\mathbf e;\mathbf z))}{N}=2E+O(\sqrt{\rho_N}).
+\end{equation}
+当 \(k\) 固定、尺度 \(D\) 有界且各 \(\lambda_i\) 均落在 \((0,\infty)\) 的一个固定紧子区间内时，上述估计中的常数可统一选取。
+\end{theorem}
+
+两个站点相距 \(L\) 时，重心以 \(\lambda_1:\lambda_2\) 的比例分割连接它们的线段。因此，两个极限宽度都等于 \(L/[2(\lambda_1+\lambda_2)]\)。更一般地，若给站点 \(i\) 赋予质量 \(a_i>0\)，则取 \(\lambda_i=1/(2a_i)\)。此时其宽度趋于 \(a_i r_i\)，归一化价格趋于 \(\sum_i a_i r_i^2\)。第~\ref{sec:incidence} 节将用这些逐条腿的宽度测量多次同时碰撞的影响。
+
+由引理~\ref{lem:dimension}，有 \(\log\dim V_h\le c\sqrt h\)。在式~\eqref{eq:sphere-transport} 中配方，对任意非零的 \(C=C(\mathbf h;\mathbf z)\) 得到
+\begin{equation}\label{eq:sphere-squares}
+ \frac{H_{\mathbf x}(C)}{N}-\sum_i\lambda_i w_N(h_i)^2
+ \le E-\sum_i\lambda_i
+             \left(w_N(h_i)-\frac{r_i}{2\lambda_i}\right)^2 .
+\end{equation}
+所有能量均为零的真空张量价格为零。因此最大值存在，\(0\le B_N\le E\)。又由于原站点的直径至多为 \(D\) 且 \(r_i\le D\)，最优宽度在定理~\ref{thm:sphere} 所述范围内一致有界。若所有站点重合，则零能量达到最大值，式~\eqref{eq:sphere-squares} 即证明了定理。在其余情形下，对任意固定的最优能量组 \(\mathbf e\)，证明将找到一个额外站点 \(y_N\)，使得
+\[
+ d(x_i,y_N)\le 2\lambda_i w_N(e_i)+O(\rho_N)\qquad(1\le i\le k)
+\]
+把这些距离平方后求和，得到最优解所付惩罚的下界。考察尺度从 \(N\) 变为 \(N+1\) 时这一惩罚的变化，便可得出 \(B_N\) 的下界。
+
+\subsection{给一条新增的腿定价}
+
+所构造的延拓必须同时适用于所有碰撞。借助同步化，这一要求可归结为估计球面张量乘积的价格，其中所有新增的腿都有相同的标记位置 \(s\)。随后取 \(s=z_i\) 处的主部，就可在同一站点 \(x_i\) 将所有新增的腿闭合。
+
+\begin{lemma}\label{lem:sphere-added}
+假设 \(\omega_F<9/4\)。固定 \(R>0\)，并令 \(\mu=\max_i\lambda_i\)。对每个 \(N\ge2\)，基础价格均可在保持尺度 \(D\) 的条件下延拓至一个新增站点 \(y_N\)，使得
+\begin{multline}\label{eq:sphere-aux}
+ H_{\mathbf x,y_N}\bigl(C((\mathbf h,g);(\mathbf z,s))\bigr)\\
+ \le N\left(B_N+\sum_j\lambda_j w_N(h_j)^2+\mu w_N(g)^2\right)
+       + O_{k,R}(D\log(2N))
+\end{multline}
+对所有 \(h_j,g\le RN^2\) 和 \(s\in F\setminus\{z_j\}\) 同时成立。
+\end{lemma}
+
+\begin{proof}
+在 \(m\) 个球面张量的乘积中，设第 \(u\) 个因子的能量为 \(\mathbf h_u,g_u\)，新增位置为 \(s\)。进行闭合时，在 \(m\) 个新增自变量空间的张量积中插入一个联合态。由适用于有理族的推论~\ref{cor:sharedprice}，只需在共同的一般参数处估计每一个这样的闭合。由于价格的次水平集闭，若严格违反所需上界，则在 \(s\) 的取值和闭合坐标所构成的一个开集上也会严格违反。因此可以固定 \(F\) 上的任意联合态，在 \(s\) 变化时保持该态不变，并对每个正则值估计闭合后乘积的价格。
+
+若所有 \(g_u=0\)，则闭合乘积是基础乘积的一个标量倍数，可应用式~\eqref{eq:sphere-objective}。否则，具有 \(g_u>0\) 的因子在每个匹配中都必须把 \(s\) 处的至少一个生成元同某一固定点处的生成元收缩。这些收缩在无穷远处取零。因此，闭合乘积是一个在无穷远处取零的有理张量，它只在各 \(z_i\) 处可能有极点，并且等于其所有主部之和。
+
+在极点 \(z_i\) 处，将每个因子的新增点与其第 \(i\) 个点融合，二者所用偏移量分别为 \(1\) 和 \(0\)。由命题~\ref{prop:fusion}，中间能量为 \(e_u\) 的项具有洛朗阶 \(\sum_u(e_u-h_{ui}-g_u)\)。插入联合态后，这一项是一个基础球面张量乘积的限制，其中各因子的第 \(i\) 个能量已换成 \(e_u\)。事实上，所有 \(m\) 个融合映射与联合态都在同一个站点 \(x_i\) 起作用。因此，负阶项的价格至多为
+\begin{align*}
+ &\sum_u N\left(B_N+\sum_j\lambda_j w_N(h_{uj})^2
+             +\lambda_i\bigl(w_N(e_u)^2-w_N(h_{ui})^2\bigr)\right)
+ \\
+ &\hspace{40pt}\le \sum_u N\left(B_N+\sum_j\lambda_j w_N(h_{uj})^2
+                      +\mu w_N(g_u)^2\right).
+\end{align*}
+这是因为主部中的项满足 \(\sum_u e_u<\sum_u(h_{ui}+g_u)\)。利用恒等式 \(w_N(h)^2=c^2h/N^2\)，仅用这条关于总能量的不等式即可推出上面的界，即使某些因子自身的洛朗阶为正也一样。整数 \(2e_u\) 的总和至多为 \(4RmN^2\)，故对每个 \(i\) 至多有 \(\binom{m+\lfloor4RmN^2\rfloor}{m}\) 种可能。因此，对所有主部使用普通和的价格不等式，所付的费用为 \(O_{k,R}(mD\log(2N))\)。所需的乘积检验由此成立，每个因子所对应的误差如式~\eqref{eq:sphere-aux} 所示。
+\end{proof}
+
+\subsection{通过碰撞还原一条连线}
+
+\begin{proof}[定理~\ref{thm:sphere} 的证明]
+固定一组最优能量 \(\mathbf e\)，简记 \(u_i=w_N(e_i)\)，并令 \(Q_N=\sum_i\lambda_i u_i^2\)。选择最接近 \(N\log(2N)\) 的半整数 \(g\)。对充分大的 \(N\)，引理~\ref{lem:dimension} 给出
+\begin{equation}\label{eq:sphere-testwidth}
+ v=w_N(g)\asymp\sqrt{\frac{\log(2N)}{N}},
+ \qquad
+ \log\dim V_g=Nv-O(\log(2N))
+\end{equation}
+我们用这个相对较小但维数不断增长的空间探测从 \(y_N\) 到各 \(x_i\) 的距离。取 \(v\asymp\rho_N\) 可使新增宽度的二次费用 \(v^2\) 与归一化插值费用 \(O(\log(2N)/N)\) 达到平衡。
+
+对于 \(j\ne i\)，保持 \(h_j=e_j\)。引理~\ref{lem:width} 表明，\(z_i\) 处的融合映射给出满射
+\begin{equation}\label{eq:sphere-surjection}
+ \bigoplus_h V_h\longrightarrow\operatorname{Hom}(V_g,V_{e_i}),
+ \qquad (a_h)_h\longmapsto\sum_h I_{e_i}(a_h,-),
+\end{equation}
+其中只需使用满足 \(\sqrt h\le\sqrt{e_i}+\sqrt g+O(1)\) 的 \(h\)。在引理~\ref{lem:sphere-added} 中取充分大的 \(R\)，以涵盖这些能量和所有其余的 \(e_j\)。由于最优宽度有界，在定理所述的一致估计范围内，可以使用同一个 \(R\)。取该引理给出的站点 \(y_N\)，它对 \(i,h\) 的每一种选择以及每一个正则的 \(s\) 都同时适用。对满足 \(h_i=h\) 的单个球面张量，只要奇偶性相符，就提取 \((s-z_i)^{e_i-h-g}\) 的系数。由融合公式，该系数在相差一个正负号的意义下，等于 \(C(\mathbf e;\mathbf z)\) 在其第 \(i\) 个位置预复合 \(I_{e_i}:V_h\otimes V_g\to V_{e_i}\) 所得的张量。
+
+所需的阶 \(e_i-h-g\) 可以为正。每个坐标函数在无穷远处有界，而融合给出其在各 \(z_j\) 处极点阶数的上界 \(2RN^2\)。因此，乘以一个次数为 \(O_{k,R}(N^2)\) 的公分母，就能把每个分量化为次数不超过该公分母次数的多项式。在 \(F\) 中互不相同的正则点处插值，每个洛朗系数都能由相应的张量取值通过同一个线性组合恢复。
+
+将 \(a\otimes f\in V_{e_i}\otimes V_g^*\) 与映射 \(b\mapsto f(b)a\) 等同。利用式~\eqref{eq:sphere-surjection} 的一个右逆，可以把这个映射写成融合映射之和，且这一表示线性依赖于 \(a\otimes f\)。在 \(x_i\) 处，将恢复的各系数分别与该右逆的各分量预复合后相加。在 \(y_N\) 处放置 \(b\in V_g\)，所得形式为
+\[
+ (a\otimes f,b)\longmapsto f(b)\,
+             C(\mathbf e;\mathbf z)(\ldots,a,\ldots).
+\]
+图~\ref{fig:sphere-wire} 展示了这一分解。所得张量是最优张量与连接 \(x_i\) 和 \(y_N\) 的一条维数为 \(\dim V_g\) 的连线的乘积，其对数价格为二者的对数价格之和。遍历所有 \(h\) 和所有插值点只产生多项式数量的加项，因而使用普通和不等式的费用为 \(O(\log(2N))\)。由式~\eqref{eq:sphere-aux}，产生这条连线时，原来第 \(i\) 条腿的宽度从 \(u_i\) 至多增至 \(u_i+v+O(N^{-1})\)，同时新增一条宽度为 \(v\) 的腿。减去最优张量的价格 \(N(B_N+Q_N)\)，得到
+\begin{align*}
+ d(x_i,y_N)\frac{\log\dim V_g}{N}
+ &\le \lambda_i\bigl((u_i+v+O(N^{-1}))^2-u_i^2\bigr)
+           +\mu v^2+O\!\left(\frac{\log(2N)}{N}\right)\\
+ &\le 2\lambda_i u_i v+O\!\left(v^2+\frac{\log(2N)}{N}\right).
+\end{align*}
+
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}[font=\small,x=1cm,y=1cm,
+ dot/.style={circle,fill=ink,inner sep=2.5pt},
+ gate/.style={draw=ink,rounded corners=2pt,fill=ink!5,inner sep=3pt},
+ wire/.style={line width=.9pt,draw=sea}]
+ \node[font=\small\bfseries] at (-3.25,1.45) {标记点处的碰撞};
+ \node[dot,label=below:{$z_i$},label=above:{$V_h$}] (old) at (-4.45,0) {};
+ \node[dot,label=below:{$s$},label=above:{$V_g$}] (new) at (-2.10,0) {};
+ \draw[-{Stealth[length=5pt]},draw=rust,line width=.8pt]
+       ([xshift=-3pt]new.west) -- ([xshift=3pt]old.east);
+ \node[font=\footnotesize] at (-3.27,-.72)
+       {由系数得\(I_{e_i}\colon V_h\otimes V_g\to V_{e_i}\)};
+
+ \node[font=\small\bfseries] at (3.1,1.45) {谱站点处的张量};
+ \node[dot,label=below:{$x_i$ 处的 $a\otimes f$}] (xi) at (2.73,-.15) {};
+ \node[dot,label=below:{$y_N$ 处的 $b$}] (y) at (4.77,-.15) {};
+ \node[gate] (c) at (1.3,.58) {\(C(\mathbf e;\mathbf z)\)};
+ \draw[draw=ink,line width=.8pt] (c) -- node[above right,inner sep=1pt] {\(a\)} (xi);
+ \draw[wire] (xi) -- node[above] {\(f(b)\)} (y);
+ \draw[draw=ink] (c.west) -- ++(-.28,.15);
+ \draw[draw=ink] (c.west) -- ++(-.28,-.15);
+\end{tikzpicture}
+\caption{在 \(s=z_i\) 处发生的碰撞，对每个容许的 \(h\) 给出一个融合映射。这些映射张成的空间包含 \(b\mapsto f(b)a\)。插入这一映射，便得到以 \(a\) 为输入的原张量，以及一条连接两个谱站点的连线。其他腿的配置保持不变。}\label{fig:sphere-wire}
+\end{figure}
+
+延拓后的尺度给出上界 \(d(x_i,y_N)\le D\)。因此，由式~\eqref{eq:sphere-testwidth} 得 \(d(x_i,y_N)\le2\lambda_i u_i+O(v)\)。这里所有常数的一致性均如定理所述。
+
+上述延拓可以在一个完备 CAT(0) 谱空间中实现。由引理~\ref{lem:geodesic}，其中原有站点的闭凸包与其原先的闭凸包典范等距。向该闭凸包作投影，到各原有站点的距离均不增大。于是
+\begin{equation}\label{eq:sphere-Q}
+ E\le\sum_i\frac{d(x_i,y_N)^2}{4\lambda_i}
+     \le Q_N+O\!\left(\sqrt{\frac{\log(2N)}{N}}\right).
+\end{equation}
+这给出了每个最优解所付惩罚的下界。为将其转化为最优价格的下界，在定义 \(B_{N+1}\) 的目标函数中再次使用同一组能量。其价格保持不变，而其惩罚在 \(NB_N\) 中为 \(NQ_N\)，在 \((N+1)B_{N+1}\) 中则为 \(N^2Q_N/(N+1)\)。因此
+\[
+ (N+1)B_{N+1}-NB_N\ge\frac{N}{N+1}Q_N.
+\]
+将这个不等式与式~\eqref{eq:sphere-Q} 一并求和，直至尺度 \(N\)。误差之和为 \(O(\sqrt{N\log(2N)})\)，且 \(E\) 一致有界。再结合 \(B_N\le E\)，就证明了式~\eqref{eq:sphere-estimate}。现在由式~\eqref{eq:sphere-squares} 即得式~\eqref{eq:sphere-profile} 中的宽度估计。各宽度及其目标值都有界，所以 \(Q_N=E+O(\sqrt{\rho_N})\)。再加上 \(B_N\)，即为所断言的价格。
+\end{proof}
+
+\subsection{给定宽度与一致比较}
+
+\begin{corollary}[给定宽度]\label{cor:sphere-caps}
+在定理~\ref{thm:sphere} 的假设下，固定各条腿的正宽度上限 \(a_i\)，则
+\begin{equation}\label{eq:sphere-caps}
+ \lim_{N\to\infty}
+ \frac{1}{N}\max_{\mathbf h:\,w_N(h_i)\le a_i}
+            H_{\mathbf x}(C(\mathbf h;\mathbf z))
+ = \inf_{o\in X}\sum_i a_i d(o,x_i).
+\end{equation}
+对所有尺度有界的配置，收敛是一致的。
+\end{corollary}
+
+\begin{proof}
+通过传输即得上界。固定 \(\tau>0\)，在站点的闭凸包上极小化 \(\sum_i a_i\sqrt{d(o,x_i)^2+\tau^2}\)。当 \(r\) 介于零与凸包的直径之间时，只要 \(\epsilon>0\) 充分小，函数 \(r\mapsto\sqrt{r^2+\tau^2}-\epsilon r^2\) 就既凸又递增。于是 CAT(0) 中点不等式表明，每个极小化序列都是柯西序列，由完备性可知极小点存在。利用度量投影可见，此点也是 \(X\) 上的极小点。在这一极小点处记 \(r_i=d(o,x_i)\)，并令 \(2\lambda_i=\sqrt{r_i^2+\tau^2}/a_i\)。利用凹函数 \(s\mapsto\sqrt{s+\tau^2}\) 的切线给出的上界，可知 \(o\) 也使 \(\sum_i d(o,x_i)^2/(4\lambda_i)\) 达到最小。事实上，平滑后的目标函数与其切线上界在 \(o\) 处相等，而此上界与这个二次目标函数只差一个常数。
+
+若尺度以 \(D_0\) 为界，则 \(r_i\le D_0\)。固定 \(\tau\) 后，这些惩罚系数均落在一个正的紧区间内。式~\eqref{eq:sphere-profile} 中各极限宽度为 \(a_i r_i/\sqrt{r_i^2+\tau^2}\)，它们与相应的上限 \(a_i\) 之间有一致的正间隔。因此当 \(N\) 足够大时，每组最优能量都满足宽度上限。其归一化价格为
+\[
+ 2E+o(1)
+ =\sum_i a_i\frac{r_i^2}{\sqrt{r_i^2+\tau^2}}+o(1)
+ \ \ge\ \inf_{z\in X}\sum_i a_i d(z,x_i)-\tau\sum_i a_i+o(1).
+\]
+先令 \(N\to\infty\)，再令 \(\tau\downarrow0\)。
+\end{proof}
+
+推论~\ref{cor:sphere-caps} 中使价格最大的能量组可能依赖于配置。第~\ref{subsec:plant-private} 节的局部构造则要将同一个张量与所有谱价格同时比较。对所有容许能量取直和即可得到所需张量，每条腿在对数维数上只需额外付出对数级的代价。
+
+\begin{corollary}[共同的比较张量]\label{cor:universal}
+假设 \(\omega_F<9/4\)。固定 \(k\) 个标记位置和正的宽度上限 \(a_1,\ldots,a_k\)。令 \(A_N\) 为所有非零 \(C(\mathbf h;\mathbf z)\) 的直和，其中每条腿都满足 \(w_N(h_i)\le a_i\)。则
+\[
+ \frac{H_{\mathbf x}(A_N)}{N}=\inf_{o\in X}\sum_i a_i d(o,x_i)+o(1)
+\]
+对于 \(F\) 上各完备 CAT(0) 谱空间中尺度有界的配置，上式一致成立。\(A_N\) 的第 \(i\) 条腿的对数维数至多为 \(Na_i+O_{k,\mathbf a}(\log(2N))\)。
+\end{corollary}
+
+\begin{proof}
+每条腿允许 \(O_{\mathbf a}(N^2)\) 个半整数能量值，故共有 \(O_{k,\mathbf a}(N^{2k})\) 个直和项。每一项都是 \(A_N\) 的限制，而直和不等式给出 \(A_N\) 的价格上界，即各项价格中的最大值加上 \(O_{k,\mathbf a}(D\log(2N))\)。现在由推论~\ref{cor:sphere-caps} 即得所述极限。由引理~\ref{lem:dimension}，每个直和项的第 \(i\) 条腿的维数至多为 \(e^{Na_i}\)。把这些维数相加，就得到所需的界。
+\end{proof}

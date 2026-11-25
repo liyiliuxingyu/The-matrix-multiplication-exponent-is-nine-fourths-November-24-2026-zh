@@ -1,0 +1,138 @@
+\section{赋值提升与次平均不等式}\label{sec:valued}
+
+在同步化论证中，一个参数可以趋近几个不同的值。我们需要比较张量价格在这些值附近下降的速率。标量情形的模型是一个具有多个根的多项式。赋值记录参数接近某个根的程度，而根的重数则给出标量价格的下降速率。对于张量，引理~\ref{lem:star} 证明这些速率之和不超过价格在某个包围这些点的圆盘上的增长速率。标量情形的这一比较在非阿基米德射影直线的位势论中很常见~\cite{BakerRumely}。对于张量，只要在一个带赋值的域上构造出价格，就能通过插值得到我们所需的不等式。
+
+\subsection{高斯提升}
+
+设 $H$ 是域 $E$ 上尺度为 $D>0$ 的普通价格。置 $\phi(A)=\exp(H(A)/D)$，并约定 $\phi(0)=0$。环 $E[t^{\mathbb Q}]$ 由 $t$ 的有理数次幂的有限线性组合构成。在其分式域 $K$ 上取加法赋值 $\nu$，它在非零环元素上取该元素的最小指数。因此 $\nu(t^r)=r$，且 $E$ 中的非零常数的赋值为零。记 $[t^j]T$ 为 $t^j$ 的系数张量。单项式张量 $t^j A$ 应有价格 $H(A)-j$。对于一般张量，我们取其张量幂，在每个因子中使用同一个 $t$，再对其系数价格作上述赋值修正并取最大值。
+
+\begin{theorem}[高斯提升]\label{thm:gauss}
+在 $K$ 上存在尺度为 $D$ 的赋值价格 $p$，它延拓了 $H$。对于分量属于 $E[t^{\mathbb Q}]$ 的张量，它由下式给出：
+\begin{equation}\label{eq:gauss-price}
+ p(T)=\lim_{n\to\infty}\frac1n
+       \max_{j\in\mathbb Q}\bigl(H([t^j]T^{\otimes n})-j\bigr).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+为各指数取一个公分母 $m$，并记 $x=t^{1/m}$。暂为 $x$ 赋予任意权重 $b>0$。对于非零洛朗多项式张量 $A(x)$，考虑加权系数和及其正则化
+\[
+ N_b(A)=\sum_i e^{-bi/D}\phi([x^i]A),
+ \qquad
+ p_b(A)=\lim_{n\to\infty}\frac Dn\log N_b(A^{\otimes n}).
+\]
+由 $\phi$ 的和的上界，$N_b$ 具有次可加性。对系数卷积应用同一上界，并利用 $\phi$ 的乘法性，可知 $N_b$ 具有次乘性。因此，由对数的次可加性，上述极限存在。$A^{\otimes n}$ 的最低次系数等于 $A$ 的最低次系数的 $n$ 次张量幂，它给出归一化对数的有限下界。
+
+在 $A^{\otimes n}$ 中有 $O_A(n+1)$ 个指数。因此以最大项代替和，对归一化对数价格所造成的误差为 $O_A(\log(n+1)/n)$。于是 $p_b(A)$ 是关于 $b$ 的一组仿射函数最大值的极限，这些函数的斜率均位于某个固定的有界区间中。特别地，$p_b(A)$ 是凸函数且满足利普希茨条件。令 $b=1/m$ 即得式~\eqref{eq:gauss-price}，该式与公分母的选取无关。
+
+\smallskip\noindent\emph{分离最大系数。}
+由次乘性得到 $p_b(T\otimes U)\le p_b(T)+p_b(U)$。对于反向不等式，两个幂中各选一个最大系数，它们的乘积所贡献的卷积系数可能因其余各项而发生抵消。我们仅在第一个因子中改变 $x$ 以分离出这一对系数。乘以 $x^a$ 会使 $p_b$ 平移 $-ba$，故只需考虑非零多项式 $T,U$。
+
+先固定 $b\mapsto p_b(T)$ 可微的一点 $b$。对每个 $n$，选取指标 $i=i_n$ 和 $j=j_n$，使 $T^{\otimes n}$ 和 $U^{\otimes n}$ 的加权系数大小分别达到最大。对于与 $i$ 的距离至少为 $n$ 的某个固定正比例的指标，存在一个一致的亏量。事实上，对每个 $\xi>0$，存在 $\delta>0$，使得对充分大的 $n$ 有
+\begin{equation}\label{eq:gauss-deficit}
+ \frac{H([x^h]T^{\otimes n})-bh}{n}
+   \le p_b(T)-\delta \qquad (|h-i|\ge \xi n).
+\end{equation}
+沿任意满足 $h/n\to v$ 的渐近最大化序列，在 $b'$ 处进行比较，即得 $p_{b'}(T)\ge p_b(T)-(b'-b)v$。由可微性必有 $v=-\frac{d}{db}p_b(T)$。由 $h/n$ 可能取值区间的紧性，既得 $i/n$ 趋于这个数，也得式~\eqref{eq:gauss-deficit} 的亏量估计。
+
+取 $k=i+j$，引入变量 $w$，写成
+\[
+\begin{aligned}
+ C_s
+ &= [x^k w^s]\bigl(T((1+w)x)^{\otimes n}\otimes U(x)^{\otimes n}\bigr)\\
+ &= \sum_h \binom hs\, [x^h]T^{\otimes n}\otimes[x^{k-h}]U^{\otimes n}.
+\end{aligned}
+\]
+改变 $s$ 时，相同的各系数乘积所乘的整数因子随之变化。无论底域具有什么特征，取若干连续的 $s$ 值都足以从短区间中分离出任意一个指标。
+
+固定 $0<\eta<1/4$。令 $I_n$ 由与 $i$ 相距不超过 $\eta n/3$ 的非负指标组成，置 $m_n=|I_n|$。对于充分大的 $n$，有 $m_n-1\le\eta n$。矩阵 $(\binom hs)_{0\le s<m_n,\ h\in I_n}$ 在整数上行列式为一。事实上，其各列是 $1+w$ 的若干连续次幂模 $w^{m_n}$ 后的系数。乘以上述幂中最低次的一个是单位三角变换，而指数为 $0,\ldots,m_n-1$ 的各次幂则构成一组单位三角基。在 $E$ 上对矩阵求逆，得到 $C_0,\ldots,C_{m_n-1}$ 的一个线性组合 $C$，使得 $i$ 处的乘子为一而 $I_n\setminus\{i\}$ 上的乘子均为零。所分离出的乘积具有加权大小 $\exp(n(p_b(T)+p_b(U)+o(1))/D)$。在式~\eqref{eq:gauss-deficit} 中取 $\xi=\eta/3$，可知其余 $O(n)$ 个乘积中每一个的加权大小都比它小一个指数因子。其在 $E$ 中的标量乘子均无代价。将分离出的乘积写成 $C$ 减去这些余项，并利用 $\phi$ 的次可加性，得到
+\begin{equation}\label{eq:gauss-lower}
+ e^{-bk/D}\phi(C)\ \ge\
+ \exp\!\left(\frac nD\bigl(p_b(T)+p_b(U)-o(1)\bigr)\right).
+\end{equation}
+
+为了给同一组合求上界，置 $B_\ell(x)=[w^\ell](T((1+w)x)\otimes U(x))$ 及 $d=\deg T$。于是 $B_0=T\otimes U$。在对 $C_s$ 有贡献且位移次数为 $\ell_1,\ldots,\ell_n$ 的项中，至多有 $s$ 个非零的 $\ell_a$。若其中有 $l$ 个非零，则该项的加权系数大小至多为
+\[
+ N_b(B_0^{\otimes(n-l)})\,\max(1,N_b(B_1),\ldots,N_b(B_d))^l,
+\]
+其中当 $d=0$ 时最大值为 $1$。这里在每个站点同时对各副本作置换，以便将未改变的因子归在一起。在 $l\le\eta n$ 的范围内，选择的方式至多有 $\sum_{l\le\eta n}\binom nl(1+d)^l$ 种，其对数为 $O_d(n\eta\log(1/\eta)+\log(n+1))$。此外，在此范围内一致地有 $D\log N_b(B_0^{\otimes(n-l)})=(n-l)p_b(B_0)+o(n)$。用以组成 $C$ 的 $O(n)$ 个系数带来的对数代价为 $O(\log(n+1))$。对式~\eqref{eq:gauss-lower} 取对数，除以 $n/D$，并令 $n\to\infty$，得到
+\[
+ p_b(T)+p_b(U)\le p_b(T\otimes U)+O_{b,T,U}\bigl(\eta\log(1/\eta)\bigr).
+\]
+令 $\eta\downarrow0$。由于可微点稠密，连续性给出对每个 $b>0$ 都成立的等式。
+
+\smallskip\noindent\emph{标量与整映射。}
+对于非零标量洛朗多项式，每个幂的最低次系数具有最大的加权大小，因为所有非零标量系数的普通价格均为零。因此 $p(f)=-\nu(f)$。利用乘法性，按 $p(A/f)=p(A)+\nu(f)$ 即可良定义地延拓至分式。
+
+考虑分量为非负次幂多项式的局部映射。取其 $n$ 次张量幂后，各站点矩阵的次数为 $O(n)$。每个次数为 $j$ 的输出系数，都是对有限个站点所选的次数求和而成。项数关于 $n$ 是多项式量级，而每项都是次数至多为 $j$ 的一个输入系数的普通限制。由 $H$ 的单调性，输入系数控制相应项，且次数所对应的权重只会减小。由此产生的对数损失为 $O(\log(n+1))$，经归一化后趋于零。对于分量为整有理函数的矩阵，取一个公分母，并从分子与分母同时约掉该分母的最低次幂，所得分子矩阵仅有非负次幂，分母的赋值为零。在各站点依次如此操作，便证得对一切整限制都成立的单调性。
+
+对于普通和的上界，对副本作局部置换并运用二项式展开，得到
+\[
+ N_b((T+U)^{\otimes n})\le\sum_{j=0}^n\binom nj
+        N_b(T^{\otimes j})N_b(U^{\otimes(n-j)}).
+\]
+固定非零的 $T$，对所有 $0\le j\le n$ 一致地有 $D\log N_b(T^{\otimes j})=jp_b(T)+o(n)$。由二项式公式得 $\exp(p(T+U)/D)\le\exp(p(T)/D)+\exp(p(U)/D)$。通分即得 $K$ 上的这一不等式。提升在常数上与 $H$ 一致，特别是对每个对角张量皆如此。因此第~\ref{sec:prices} 节的对角张量判据给出直和等式。令 $p(0)=-\infty$。
+\end{proof}
+
+\subsection{圆盘上的价格}
+
+现在需要在每个参数圆盘上定义价格的一般值。取代数闭域 $F$，并在 $F$ 上一个固定的有限站点集中取一个普通价格。设 $\mathcal U$ 是不可数个独立不定元的集合，将系数域扩大为 $E=F(\mathcal U)$。对于只依赖其中有限多个变量的有理张量，定义其在 $E$ 上的普通价格为其定义域内各 $F$ 值特殊化的价格的上确界。
+
+由式~\eqref{eq:prices-range} 对固定形状张量给出的界，每个非零有理张量的上述上确界都是有限的。固定形状后，其价格在 $F$ 上的次水平集是扎里斯基闭集（第~\ref{sec:prices-background} 节）。所以，对任意正容差，价格与上确界之差在该容差之内的特殊化包含一个非空开集。有限多个这样的集合在公共定义域上有交点。在这些同时满足要求的特殊化处应用价格公理，再令容差趋于零，即得 $E$ 上的各条公理。在 $\mathcal U$ 的各子集所生成的子域上，这一延拓彼此相容；它还在 $\mathcal U$ 的置换下保持不变。
+
+在 $E$ 上应用定理~\ref{thm:gauss}。令 $\mathcal O$ 表示 $K=\operatorname{Frac}(E[t^{\mathbb Q}])$ 的赋值环。称一个 $u\in\mathcal U$ 为\emph{新不定元}，如果它不出现在正在比较的任何数据中。对于 $r\in\mathbb Q$，中心为 $a\in K$、赋值界为 $r$ 的圆盘是 $a+t^r\mathcal O$。它的一般价格就是在 $a+t^r u$ 处的价格。增大 $r$ 会缩小圆盘。
+
+\begin{lemma}[特殊化与星形不等式]\label{lem:star}
+给定 $K$ 上的多项式张量 $T(c)$，若它只在基底站点上，令 $P(c)=p(T(c))$；若 $T$ 具有额外站点，则令 $P(c)=\beta_p(T(c))$。取新不定元 $u$ 并置 $P_*=P(u)$，有
+\[
+ P(c)\le P_* \quad (c\in\mathcal O), \qquad P_*=\sup_{a\in F}P(a).
+\]
+施行满足 $a\in\mathcal O$ 及 $b\in\mathcal O^\times$ 的仿射变量替换 $c\mapsto a+bc$ 后，一般价格保持不变。这里 $u$ 对于 $a$ 和 $b$ 也都是新不定元。
+
+设 $T$ 非零且次数为 $d$。选取有限多个剩余类互不相同的中心 $c_j\in\mathcal O$ 以及正有理数 $r_j,r_\infty$。令
+\[
+ P_j=P(c_j+t^{r_j}u),\qquad P_\infty=P(t^{-r_\infty}u).
+\]
+则
+\begin{equation}\label{eq:valued-star}
+ \sum_j\frac{P_*-P_j}{r_j}
+ \ \le\ \frac{P_\infty-P_*}{r_\infty}\ \le\ d .
+\end{equation}
+等价地，第一个不等式表明中心价格 $P_*$ 至多等于该星形各端点价格的加权平均，权重分别与 $1/r_j$ 和 $1/r_\infty$ 成正比。若中心值等于该平均值，就称星形上的这些值是\emph{调和的}。上述加权平均不等式对零族也成立。
+\end{lemma}
+
+例如，设标量多项式 $T(c)=\prod_j(c-c_j)^{m_j}$ 的各个 $c_j\in F$ 互不相同，则其在单位圆盘上的一般价格为零。在以 $c_j$ 为中心的内圆盘上，其价格为 $-m_jr_j$，即每单位赋值长度下降 $m_j$。在外圆盘上其价格为 $r_\infty\sum_j m_j$。因此式~\eqref{eq:valued-star} 中的两个不等式均取等号。
+
+\begin{proof}
+零族的情形显然。先设 $P(c)=p(T(c))$ 且 $T\ne0$，写 $Q(c)=T(c)^{\otimes n}$。其次数至多为 $nd$。在 $nd+1$ 个新不定元上作插值，由于节点之差均为单位，对任意 $c\in\mathcal O$，拉格朗日权重都是整的。由置换对称性，所有样本的价格均为 $nP_*$，故由普通和的上界得
+\[
+ p(Q(c))\le nP_*+D\log(nd+1).
+\]
+除以 $n$ 并令 $n\to\infty$，即得特殊化不等式。反之，在 $F$ 中取 $nd+1$ 个不同节点作插值，并在 $u$ 处求值。同一论证给出 $P_*\le\sup_{a\in F}P(a)$。对整仿射变量替换及其整逆变换分别应用特殊化，即得所述不变性。对嵌套圆盘应用特殊化还可得 $P_j\le P_*\le P_\infty$。
+
+这些节点的范德蒙德矩阵的逆有整分量，因此插值既控制函数取值，也控制系数。在单位圆盘上由此得 $p([c^\ell]Q(c))\le nP_*+D\log(nd+1)$。在 $t^{-r_\infty}u$ 处求值，任一系数的价格至多增加 $nd r_\infty$。求和的价格另付 $D\log(nd+1)$，取极限即证得 $P_\infty-P_*\le d r_\infty$。
+
+为证明另一个不等式，我们在每个内圆盘上用插值控制其中心处的低阶泰勒系数，并在外圆盘上用插值控制无穷远处的高阶系数。具体而言，对 $Q(c_j+t^{r_j}v)$ 和 $Q(t^{-r_\infty}v)$ 就变量 $v$ 作插值，再除去 $t$ 的标量幂，得到
+\begin{align}
+ p([v^\ell]Q(c_j+v)) &\le nP_j+r_j\ell+D\log(nd+1),\notag\\
+ p([c^\ell]Q(c)) &\le nP_\infty-r_\infty\ell+D\log(nd+1).
+ \label{eq:valued-jets}
+\end{align}
+
+假设各条向内的支臂每单位长度的价格降幅之和，超过向外支臂每单位长度的增幅。在有正降幅的支臂上，选取严格介于零与 $(P_*-P_j)/r_j$ 之间的 $a_j$，在其余支臂上取零，使得存在 $b$ 满足
+\[
+ \sum_j a_j>b>(P_\infty-P_*)/r_\infty
+\]
+令 $m=\lceil nb\rceil$ 及 $m_j=\lfloor na_j\rfloor$。由上述严格不等式及式~\eqref{eq:valued-jets}，可取 $\epsilon>0$，使得当 $n$ 足够大时，所有系数
+\[
+ [c^\ell]Q(c)\quad(m\le\ell\le nd),\qquad
+ [v^\ell]Q(c_j+v)\quad(0\le\ell<m_j)
+\]
+的价格至多为 $n(P_*-\epsilon)$。这些系数通过整线性组合决定 $Q(u)$。事实上，减去 $Q$ 的高次部分后，剩余多项式的次数 $<m$。直到 $m_j-1$ 阶为止的泰勒系数给出它在各中心处模 $(c-c_j)^{m_j}$ 的剩余类。对于充分大的 $n$，总重数 $\sum_j m_j$ 至少为 $m$。由于各中心之差是单位，各模多项式在 $\mathcal O$ 上生成的理想两两互素。因此，由中国剩余定理，在单项式坐标中通过一个 $\mathcal O$ 线性映射即可重构低次多项式。计算被减去部分的泰勒系数以及在 $u$ 处求值也都是整运算。上述恒等式对 $K$ 上的张量逐分量成立。
+
+这样，只用所列系数中的 $O(n+1)$ 个便可表示 $Q(u)$。由和的上界就会得到 $nP_*=p(Q(u))\le n(P_*-\epsilon)+O(\log(n+1))$，矛盾。
+
+对于辅助成本，在式~\eqref{eq:prices-beta} 中固定幂次 $m$，以 $A(c,\mathbf z)$ 表示用分量为 $\mathbf z=(z_1,\ldots,z_s)$ 的泛函对 $T(c)^{\otimes m}$ 作闭合所得的张量。这些分量以多项式方式出现。对固定的 $c$，$p(A(c,\mathbf z))$ 在 $\mathcal O^s$ 上的上确界与在 $F^s$ 上的上确界相等。事实上，在 $F^s$ 的一个矩形网格上对 $A(c,\mathbf z)^{\otimes n}$ 作插值。对固定的 $m$，每个坐标有 $O_m(n+1)$ 个节点，且总节点数为多项式量级。在整参数处求值只需整权重，故每份张量副本所付的对数代价趋于零。
+
+因此 $\beta_p(T(c))$ 是函数 $p(A(c,\mathbf z))/m$ 对所有 $m$ 及常数闭合数据取的上确界。当 $T\ne0$ 时，略去恒等于零的测试。其余测试在各一般点处都非零。各自的特殊化不等式取上确界后仍然成立，并且对 $a\in F$ 与对所有测试取上确界的顺序可交换，从而得到一般值等式。由于权重均为正，加权平均不等式在取上确界后仍成立。最后，因 $\deg_c A\le md$，每个测试在除以 $m$ 后都满足外部增长上界 $d r_\infty$。此公共界也适用于上确界。
+\end{proof}

@@ -1,0 +1,9 @@
+\subsection{矩阵乘法已有的界}\label{sec:history}
+
+Strassen 在分块矩阵上递归应用其七乘积恒等式，得到指数 $\log_2 7$~\cite{strassen}。随后的算法通过同时处理多个矩阵乘积来节省运算。Pan 将三线性形式合并~\cite{pan}，Bini 说明了插值如何把近似双线性恒等式变成精确算法~\cite{bini}，Sch\"onhage 的渐近和不等式则将矩阵乘法的直和转化为单个乘积的指数上界~\cite{schoenhage}。Coppersmith 和 Winograd 研究了如何递归地提取互不相交的乘积~\cite{cw82}。Strassen 的激光方法从张量幂中提取这些乘积~\cite{Strassen87}，Coppersmith 和 Winograd 又设计了一个辅助张量，可用不含非平凡三项等差数列的集合完成提取~\cite{cw}。
+
+随后的改进取决于能让多少个乘积保持独立。对更高次张量幂的分析~\cite{sto,ds,vw,legall}、更精细的提取方法与非对称散列~\cite{avw,duan,alphaomega,alman}，以及数值优化~\cite{dupont}，都改进了从 Coppersmith--Winograd 张量得到的界。交错提取给出了在任意域上成立的 $\omega_F<2.371055$~\cite{stagger}。另一条研究路线把矩阵乘法嵌入群代数~\cite{cohn2003,cohn2005}，以及相干构形的代数~\cite{CohnUmansSupport}。
+
+上界 $9/4$ 来自多项式乘法。在 Strassen 的渐近谱中~\cite{spectrum}，渐近秩等于一类归一化函数的最大值，这些函数对于直和可加、对于张量积可乘，并在限制下单调。在 $\mathbb C$ 上，上界的证明考察当两个输入多项式的次数增大时，这些函数给多项式乘法赋予怎样的值。退化给出这一取值曲线的增长下界，插值给出一个依赖于矩阵乘法取值的上界。比较二者便得到 $9/4$~\cite[定理~1.1]{nine}。这里的核心退化将若干块分离开来：这些块在两条腿上使用独立变量，并共享第三条腿。部分标签和半直和给出了这一步的相关表述~\cite{two258,li}。L\"u 在任意特征下证明了这一步分离~\cite{lu}。Amanov、van den Berg 和 Zuiddam 在任意域上得到该界~\cite[定理~1.1]{abvz}。另见张量值方法的证明~\cite{tensorvalue} 以及 Shpilka 的显式算法~\cite{shpilka}。该论证的矩形版本~\cite{uznanski,abvz} 将这些估计与文献~\cite{coppersmith,alphaomega} 中研究的对偶指数联系起来。
+
+在下界方面，Bl\"aser 证明了在任意域上，$T_n$ 的通常秩至少为 $\tfrac52 n^2-3n$~\cite{Blaeser}。在 $\mathbb C$ 上，Landsberg 给出通常秩的下界 $3n^2-o(n^2)$~\cite{LandsbergRank}，Landsberg 和 Micha{\l}ek 给出边界秩的下界 $2n^2-\lceil\log_2 n\rceil-1$~\cite{LandsbergMichalek}。沿序列 $T_n^{\otimes j}\simeq T_{n^j}$ 取方根时，$n^2$ 前的常数因子会消失。激光方法的局限性与张量不可逆性给出的界，针对的是须经过指定中间张量的算法~\cite{limits,irreversible}。就多项式乘法而言，Amanov、van den Berg 和 Zuiddam 同样证明，对指定的一组退化与组合规则，$9/4$ 已经最优~\cite[定理~5.4]{abvz}。定理~\ref{thm:square} 则为不受这些限制的算术电路给出匹配的下界。关于渐近谱的相关工作构造了量子泛函~\cite{CVZ} 和任意域上的显式谱点~\cite{almanlipratt}，并用多项式方程刻画了渐近秩的次水平集~\cite{SpectralSublevels}。Wigderson 和 Zuiddam 对这一框架作了综述~\cite{WZ}。

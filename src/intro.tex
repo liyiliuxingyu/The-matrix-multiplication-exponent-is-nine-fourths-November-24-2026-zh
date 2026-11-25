@@ -1,0 +1,121 @@
+\section{矩阵乘法的指数}\label{sec:intro}
+
+两个 \(n\) 阶方阵的乘积有 \(n^2\) 个元素。若分别计算各个元素所对应的点积，所需算术运算次数的量级为 \(n^3\)。Strassen 的七乘积恒等式表明，不同元素的计算可以共用中间结果，从而使 \(n\) 的指数有所下降。究竟能下降多少？猜想 \(\omega=2\) 问的是，对每个 \(\varepsilon>0\)，能否用 \(O(n^{2+\varepsilon})\) 次运算算出乘积。我们将证明，算术运算次数的指数恰好比输出规模的指数大四分之一。
+
+\begin{theorem}\label{thm:square}
+对任意域 \(F\)，方阵乘法的指数均为 \(\omega_F=9/4\)。
+\end{theorem}
+
+这里，\(\omega_F\) 是使得两个 \(n\times n\) 矩阵可经 \(O_{F,s}(n^s)\) 次标量运算相乘的所有实数 \(s\) 的下确界。我们使用形式算术电路。其输入是独立变量，常数取自 \(F\)，各门可作加法、减法、乘法或以非零有理函数为除数的除法。每项输出必须与乘积中的相应元素构成有理函数恒等式。这一约定也适用于有限域。
+
+OpenAI 在 \(\mathbb C\) 上建立了 \(9/4\) 这一上界~\cite{nine}。继 L\"u 将论证推广到任意特征之后~\cite{lu}，Amanov、van den Berg 和 Zuiddam 在任意域上建立了这一上界~\cite{abvz}。我们证明与之相等的下界。事实上，对每个 \(n\ge2\)，即使线性运算免费，计算两个 \(n\times n\) 矩阵之积的电路也至少需要 \(\lceil n^{9/4}/2\rceil\) 个乘法门或除法门。上述上界表明，对每个 \(\varepsilon>0\)，都存在规模为 \(O_{F,\varepsilon}(n^{9/4+\varepsilon})\) 的电路。
+
+\par\Needspace{8\baselineskip}
+\subsection{各个矩阵阶数下的秩}
+
+双线性算法分别从第一个矩阵和第二个矩阵的元素中取线性组合，将两者相乘，再用这些乘积的线性组合得到全部输出元素。所需乘积个数的最小值就是矩阵乘法张量
+\[
+             T_n=\sum_{i,j,k=1}^{n}
+                    e_{ij}\otimes e_{jk}\otimes e_{ki}
+\]
+的秩。这里的第三个因子将位置 \((i,k)\) 的输出与 \(e_{ki}\) 配对。将对应的因子归组，可得 \(T_n^{\otimes j}\simeq T_{n^j}\)。因此，在某个固定阶数取得的改进，可以反复用于任意大的阶数。
+
+给定乘积的个数，几何边界秩允许张量属于用这些乘积所能计算的张量在 \(\overline F\) 上的 Zariski 闭包。张量在 \(F\) 上的渐近秩，是其 \(j\) 次张量幂在 \(F\) 上的秩取 \(j\) 次方根后所得的极限。
+
+\begin{corollary}\label{cor:tight}
+对每个 \(n\ge2\) 及每个域 \(F\)，\(T_n\) 的几何边界秩至少为 \(n^{9/4}\)，其在 \(F\) 上的渐近秩等于 \(n^{9/4}\)。在 \(F\) 上计算该矩阵乘积的每个形式算术电路都至少有 \(\lceil n^{9/4}/2\rceil\) 个非标量乘法门或除法门。
+\end{corollary}
+
+特别地，每个计算 \(n\) 阶矩阵乘积的精确双线性算法至少需要 \(\lceil n^{9/4}\rceil\) 个乘积。一般电路的下界中出现因子二，是由于提取了门的双线性部分。一次乘法或除法至多引入两个新的线性形式乘积（引理~\ref{lem:bilinearize}）。
+
+方阵的下界还限制了矩形矩阵乘法在成本指数仍为二时中间维数所能达到的宽度。用 \(T_{a,b,c}\) 表示一个 \(a\times b\) 矩阵与一个 \(b\times c\) 矩阵相乘的张量。令 \(\alpha_F\) 为所有如下 \(\beta\ge0\) 的上确界：一个 \(n\times\lfloor n^\beta\rfloor\) 矩阵与一个 \(\lfloor n^\beta\rfloor\times n\) 矩阵相乘时，相对于 \(n\) 的指数为二。
+
+\begin{corollary}\label{cor:rectangular}
+对任意正整数 \(a,b,c\)，\(T_{a,b,c}\) 的几何边界秩及其在 \(F\) 上的渐近秩均至少为
+\[
+              \max\{ab,bc,ca,(abc)^{3/4}\}.
+\]
+在任意域上，均有 \(1/2\le\alpha_F\le2/3\)。
+\end{corollary}
+
+取三份矩形矩阵乘法张量，循环置换因子的角色，再取张量积，就得到方阵乘法张量 \(T_{abc}\)。这说明了推论~\ref{cor:rectangular} 中幂次 \(3/4\) 的由来。\(\alpha_F\) 的下界来自中间维数为 \(\lfloor\sqrt n\rfloor\) 的已知算法~\cite{uznanski,abvz}。第~\ref{sec:finite-ranks} 节证明这两个推论，并说明它们对 Strassen 关于紧张量的猜想有何推论。
+
+\subsection{更快的矩阵乘法为何会使列表检测成本过低}
+
+假设我们可以在 \(9/4\) 以下再节省 \(n\) 的某个固定正幂。那么，只需选定一个实现严格改进的双线性算法，就能将其特化到某个有限域。在该域上，我们对另一项计算给出两个估计，并作比较。给定一个列表，其中有 \(2^w\) 个长度为 \(2w\) 比特的字，若所有字两两不同就返回一，只要有字重复就返回零。将这些字排序，再检查相邻的字，就能用一个小网络完成检测。问题在于，若要检测若干个输入彼此独立变化的列表，其计算成本有多少可以共用？
+
+我们用张量网络中的顶点数与连线数来衡量成本，每个顶点至多与三个比特关联。网络对内部比特求和，且对外部比特的每种赋值，都必须给出准确的零一答案。对于 \(t\) 个列表，它必须给出这 \(t\) 个答案的乘积。内部布线可以连接不同列表。即使容许这种自由度，仍存在某个固定的 \(\sigma>0\)，使得对所有充分大的 \(w\) 和所有 \(1\le t\le2^w\)，每个输入比特分摊的网络体积都大于 \(w^\sigma\)（定理~\ref{thm:many}）。证明将问题归约为带标签记录的路由问题。关于张量几何与网络复杂性的配套结果或者直接约束这种路由，或者从低成本路由导出与一条计数下界的矛盾~\cite{oaG,oaP}。
+
+假设存在的矩阵乘法算法给出了相反方向的估计。考虑一个具有 \(e\) 个外部比特、规模至多为 \(e^{1.05}\) 的三价网络，其中 \(e\) 很大。我们可用一个新网络表示原网络取值表的某个张量幂。就每份副本而言，新网络能把原规模除以对数的一个正幂，只需为每个外部比特支付对数的一个任意小正幂的成本（定理~\ref{thm:shaving}）。复制后的各比特仍可分别访问，因此可以再次使用该构造。从排序检测出发，压缩固定次数后，对于任意选定的 \(0<\eta<\sigma\)，每个输入比特的体积为 \(O(w^\eta)\)。批次中依然至多有 \(2^w\) 个列表。第~\ref{sec:obstruction} 节给出由此导出矛盾的简短论证，并将结论从有限域推广到任意域。证明的大部分篇幅用于从矩阵乘法的严格改进推导出这种压缩。
+
+\subsection{三条连线与一个共享标签}
+
+为说明指数如何制约网络恒等式，考虑给每个张量赋予一个数值，使该数值在张量积下可乘、在直和下可加，并且在各因子的线性映射下单调。在通常的归一化下，这就是 Strassen 意义下的谱点~\cite{spectrum}。其对数称为\emph{价格}。一条连线在两个因子之间共享一个指标。其每比特价格给出了这两个站点之间的距离。配套论文~\cite{oaG} 将这些距离延拓到非正曲率空间中。第~\ref{sec:prices-background} 节回顾本文用到的性质。
+
+图~\ref{fig:three-wires} 给出 \(T_n\) 的两种描述。每个指标 \(i,j,k\) 都恰好出现在两个因子中。因此，该张量的价格等于三条连线的长度之和乘以 \(\log_2 n\)。具有 \(r\) 项的秩分解，可以由一个取 \(r\) 种可能值的共享标签生成同一个张量：该标签确定所选的项。如果这个三方标签的每比特价格为 \(D\)，则由单调性得
+\[
+      (\text{三条连线长度之和})\,\log_2 n
+                                     \ \le\ D\,\log_2 r .
+\]
+因此，三角形周长与其共享标签费率之比给出了指数的下界。来自欧氏平坦子空间的价格给出的比值为二~\cite{oaG}。要达到 \(9/4\)，需要另一种几何结构。
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,
+   site/.style={circle,draw=ink,fill=white,minimum size=6mm,inner sep=1.5pt},
+   conn/.style={thick,draw=sea}]
+  \begin{scope}[xshift=-2.75cm]
+   \coordinate (A) at (-1.48,0); \coordinate (B) at (1.48,0);
+   \coordinate (C) at (0,1.48);
+   \draw[conn] (A)--node[below] {\(j\)} (B)
+                --node[above right] {\(k\)} (C)
+                --node[above left] {\(i\)} (A);
+   \node[site] at (A) {\(A\)}; \node[site] at (B) {\(B\)};
+   \node[site] at (C) {\(C\)};
+   \node at (0,-.85) {\(T_n\) 的三个指标};
+  \end{scope}
+  \begin{scope}[xshift=2.75cm]
+   \coordinate (A) at (-1.48,0); \coordinate (B) at (1.48,0);
+   \coordinate (C) at (0,1.48); \coordinate (O) at (0,.52);
+   \draw[conn] (O)--(A) (O)--(B) (O)--(C);
+   \node[site] at (A) {\(A\)}; \node[site] at (B) {\(B\)};
+   \node[site] at (C) {\(C\)};
+   \node[fill=white,text=rust,inner sep=2pt] at (O) {\(\ell\)};
+   \node at (0,-.85) {每个秩分解项一个标签};
+  \end{scope}
+\end{tikzpicture}
+\caption{三个张量因子分别对应于两个输入，以及与第三个矩阵配对的输出。左图中，\(A,B,C\) 分别可见 \((i,j),(j,k),(k,i)\)。右图中，三者可见同一个标签 \(\ell\in[r]\)，并各自施加自己的线性映射。}\label{fig:three-wires}
+\end{figure}
+
+临界比值出现在三条臂长均为一的三脚架的三个端点上。任意两个端点之间的距离均为二。如果共享标签的费率为 \(8/3\)，所得比值就是 \(6/(8/3)=9/4\)。在存在严格改进的假设下，这种三脚架不可能出现。第~\ref{part:spheres} 部分利用了这一排除结论。如果改变一个张量的参数能移动它在某一族价格中的首选站点，这种移动就会产生一个齐次三脚架。首先，用一个矩形矩阵乘法解码器确定当其中一条臂很长时的极限费率。随后，利用多项式乘法的刚性，将该等式推广到三条臂等长的三脚架（命题~\ref{prop:tripod}）。排除上述移动之后，就可以在站点的同一个扩张中给整族张量定价。这种同步性是实现压缩所需的几何依据。证明下界之后，我们还可以确定使 \(T_n\) 的取值达到最大的每种价格下的三条连线长度（推论~\ref{cor:extremal-price}）。
+
+\subsection{从价格到更小的网络}
+
+我们使用的张量族由球面张量组成。张量的元素由标记点决定。当这些点碰撞时，张量展开为沿维数可控的张量腿进行的收缩之和。在严格改进假设下，还能确定这些张量可达到的最高价格。对于指定的腿宽（即各维数的对数），它们渐近达到以下成本：在成本最低的公共站点制备张量，再把每条腿运往其目的地（第~\ref{sec:sphere} 节）。确定张量元素的标记点与决定价格的站点发挥着不同的作用。图~\ref{fig:org} 展示了上述计算如何用于网络构造的两个部分。
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,
+ box/.style={draw=ink,align=center,rounded corners=1.5pt,inner sep=5pt},
+ arr/.style={draw=sea,thick,-{Latex[length=4pt]}}]
+ \node[box] (price) at (0,0) {方阵乘法的严格改进决定球面张量的价格\\
+                                  {\footnotesize 第~\ref{part:spheres} 部分}};
+ \node[box,text width=4.0cm] (sort) at (-2.65,-1.65)
+     {稳定排序与\\批量查表\\{\footnotesize 第~\ref{part:sorting} 部分}};
+ \node[box,text width=4.0cm] (conc) at (2.65,-1.65)
+     {集中\\关联比特\\{\footnotesize 第~\ref{part:local} 部分}};
+ \node[box] (vol) at (0,-3.5) {张量幂的压缩\\
+                                  {\footnotesize 第~\ref{part:volume} 部分}};
+ \draw[arr] (price.south west)--(sort.north);
+ \draw[arr] (price.south east)--(conc.north);
+ \draw[arr] (sort.south)--(vol.north west);
+ \draw[arr] (conc.south)--(vol.north east);
+\end{tikzpicture}
+\caption{证明下界所需的蕴含关系。排序与集中在同一个网络上给出互补的估计。反复压缩将与定理~\ref{thm:many} 关于独立列表的下界矛盾。}\label{fig:org}
+\end{figure}
+
+压缩必须支付网络中每个取值表以及描述各表连接方式的记录所需的成本。直接查询含 \(u\) 个关联比特的表，成本可能达到 \(2^u\)。在大批量处理中，将查询与表项一同排序，可以摊薄这一成本。第~\ref{part:sorting} 部分利用球面张量导出的关联不等式为记录选择路由。对于 \(2^u\) 个宽度为 \(O(u)\) 的记录，所得稳定排序的每条记录成本为 \(O(u^p)\)，其中某个 \(p<2\)。对更宽的记录另有一个估计，可使成本接近关于宽度的线性函数。
+
+严格不等式 \(p<2\) 很重要，因为碰撞所控制的量与一条腿的宽度的\emph{平方}成正比。第~\ref{part:local} 部分用球面张量实现布线，使插入项跨过球面张量之间的接缝，再将它们合并。利用费米子收缩减少布线的做法，与文献~\cite{Khoruzhii,oaG} 中的交叉构造及次指数时间可满足性算法中的压缩~\cite{falseeth,Anthropic} 有关。合并将关联比特集中到较少的站点，同时控制各宽度的平方和。第~\ref{part:volume} 部分分轮应用这些恒等式。展开式有许多加项，各有不同的布线。同一个网络必须描述各种可能的布线，为记录选择路由，查询表项，并对各项的贡献求和。把这四项操作都计入成本，便得到定理~\ref{thm:shaving} 中节省的对数因子，从而导出矛盾。
+
+\input{history}

@@ -1,0 +1,219 @@
+\section{运动族迫使下界达到 \texorpdfstring{$9/4$}{9/4}}\label{sec:motion}
+
+依赖于一个标量参数的张量，在每个参数值处都可能有不同的价格极小化放置。第~\ref{sec:sync} 节将在一个圆盘上构造这些放置。我们证明，存在满足圆盘比较条件的非常值族，就迫使方阵乘法的指数至少为 \(9/4\)。第一步是几何论证。在平移首次使某个点移动的深度处，重新缩放后的邻域包含一棵树，其中两条分支在深度等于其参数之差的赋值处相遇。第二步考察该树四条等长分支上的价格。当第四个尖端取一般参数时，精确到一阶，四个尖端共享的标号的价格至多为一条横跨直径的连线价格的 \(3/2\) 倍。第~\ref{sec:boundary} 节利用尖端之间的碰撞将此估计转化为矩阵乘法秩的三站点比较。
+
+设 \(F\) 是代数闭域。取不可数的不定元集合 \(\mathcal U\)，并置
+\[
+ K_0=\operatorname{Frac}\bigl(F(\mathcal U)[t^{\mathbb Q}]\bigr),
+ \qquad \mathcal O=\{z:\nu(z)\ge0\},\qquad J=\{z:\nu(z)>0\},
+\]
+赋值取最低指数，且约定 \(\nu(0)=+\infty\)。如果某个不定元不出现在 \(K_0\) 中的给定有限数据中，就称它相对于这些数据是\emph{新的}。考虑 \(F\) 上的一个谱空间中的一族站点 \(x_z\)（\(z\in J\)），并要求以下条件成立。
+\begin{enumerate}
+\item 对全部指标加上同一个 \(w\in J\)，或对 \(\mathcal U\) 施以置换，都保持 \(F\) 上所有张量的价格不变。
+\item 对任意有限槽位列表上的非零张量，令 \(P(c)\) 表示该张量在站点 \(x_{a_i+b_i c}\) 的价格，其中 \(a_i,b_i\in J\)。取新不定元 \(u\)，对 \(c\in\mathcal O\) 有 \(P(c)\le P(u)\)。给定剩余类各不相同的 \(c_j\in\mathcal O\) 及正有理长度 \(s_j,s_\infty\)，只要外端点处的指标属于 \(J\)，同一测试就满足
+\begin{equation}\label{eq:motion-star}
+   \sum_j\frac{P(c_j+t^{s_j}u)-P(u)}{s_j}
+       +\frac{P(t^{-s_\infty}u)-P(u)}{s_\infty}\ \ge\ 0
+  \end{equation}
+这里 \(u\) 相对于该星形的数据也是新的。因此，圆盘一般点处的价格至多为各端点价格的加权平均，其中权重与相应长度的倒数成正比。上述两种比较正是引理~\ref{lem:star} 中特殊化与次平均不等式对普通价格的表述。
+\item 存在两个距离为正的站点，且当 \(\nu(z)\to+\infty\) 时，\(d(x_0,x_z)\to0\)。
+\end{enumerate}
+特别地，这些不等式适用于距离。只需用一条两站点连线作测试，并将其价格除以其大小的对数。
+
+\begin{theorem}[解析运动的刚性]\label{thm:motion}
+若这样的族存在，则对于每个边长 $n$，$F$ 上的方阵乘法的精确秩至少为 $n^{9/4}$。
+\end{theorem}
+
+\subsection{位移阈值}
+
+为找出运动经缩放后仍然存在的尺度，取一个在所有充分高赋值的平移下保持不动的点。当赋值降到该点的阈值以下时，其轨道才开始移动。我们将选取这个点，使其位移在阈值处具有严格为负的左导数。
+
+由平移不变性，存在 \(w\in J\) 使得 \(x_w\ne x_0\)。取有理数 \(0<b<\nu(w)\)，并将 \(x_z\) 替换为 \(x_{t^b z}\)。这样得到的仍是满足全部三个条件的非常值族。对连线距离 \(d(x_0,x_{t^bc})\) 应用特殊化，便知新族的半径不超过在新不定元 \(u\) 处的值。因此可在一个完备的 $\operatorname{CAT}(0)$ 谱延拓中，取这些新站点的有界闭凸包 \(X\)，在其中进行论证。根据第~\ref{sec:prices} 节价格的测地决定性，各对称变换以保价格等距映射作用在 \(X\) 上。以 \(g_w\) 表示平移的作用。
+
+我们先把条件~2 中的仿射比较推广到站点 \(g_{a_i+b_i c}A_i\)，其中 \(A_i\in X\)。如果 \(A_i\) 由原站点之间有限次测地插值而得，则构造中的每个线段都受到与 \(A_i\) 相同的平移。比较过程中，其长度和确定插值点的两个距离均不变。因此由引理~\ref{lem:geodesic}，星形不等式在每次插值后仍然成立。同理也可推广特殊化比较，这时取特殊化的放置为中心，并取一般放置为唯一的端点。现在用这类点逼近任意 \(A_i\)，再应用搬运不等式 \eqref{eq:prices-transport}。有限个站点的逼近序列仅涉及可数多个不定元，因此统一选取一个 \(u\) 即可。如果每个 \(A_i\) 在置换下不变，那么可以固定有限的测试数据并置换不定元，从而对任一新不定元 \(u\) 都能使用该比较。
+
+对于正有理数 \(r>0\) 及 \(A\in X\)，在 \(A\) 的一个可数支撑之外取 \(u\)；例如，可取收敛到 \(A\) 的一个有限测地构造序列中所涉及的变量为支撑。由特殊化可得
+\begin{equation}\label{eq:motion-R}
+ R(A,r):=\sup_{\nu(w)\ge r}d(A,g_w A)
+          =d(A,g_{t^r u}A).
+\end{equation}
+给定满足 \(\nu(w)\ge r\) 的任意 \(w\)，特殊化表明它引起的位移不超过一般位移；后者在一个相对于 \(A\) 及 \(w\) 均为新的变量处求得。固定 \(A\) 的一个可数支撑并将该变量置换成 \(u\)，就对每个 \(w\) 得到同一上界。反过来，\(t^r u\) 本身就属于该子群。在零点取一个向内的端点，对距离 \(d(A,g_{t^rc}A)\) 应用 \eqref{eq:motion-star}。对于满足 \(s,b>0\) 的正有理数 \(r-s,r,r+b\)，即得
+\[
+ \frac{R(A,r)-R(A,r-s)}{s}
+ \ \le\ \frac{R(A,r+b)-R(A,r)}{b}.
+\]
+因此 \(R(A,\cdot)\) 是凸函数。其值介于零和 \(\operatorname{diam}X\) 之间，故可连续延拓到 \(r>0\)，并且在每个紧子区间上具有与 \(A\) 无关的利普希茨界。将 \eqref{eq:motion-R} 中的上确界夹在它在有理深度处的取值之间，便知在实数深度处它也等于该延拓值。
+
+子群 \(\nu(w)\ge r\) 的公共不动点集 \(X_r=\{A:R(A,r)=0\}\) 是闭凸集。该子群任一轨道的外心属于 \(X_r\)。由于 \(A\) 的轨道包含 \(A\)，并且包含在以 \(A\) 为中心、半径为 \(R(A,r)\) 的球中，所以 \(d(A,X_r)\le R(A,r)\)。特别地，只要该子群使 \(x_0\) 发生移动，\(f(r)=d(x_0,X_r)\) 就为正；它随 \(r\) 单调不增，并且由条件~3 趋于零。对 \(0<h<r\)，\(x_0\) 在 \(X_r\) 上的投影 \(A_r\) 满足
+\[
+ 0\le f(r-h)-f(r)\le R(A_r,r-h)-R(A_r,r).
+\]
+上述一致的利普希茨界意味着 \(f\) 局部满足利普希茨条件。由于它在某处有严格的下降，故有一个深度 \(r_*\) 满足 \(f'(r_*)<0\)。固定 \(A=A_{r_*}\)。不定元的任一置换都固定 \(x_0\) 并保持 \(X_{r_*}\)，因而固定这个唯一的投影。上一不等式说明凸函数 \(R(A,\cdot)\) 在 \(r_*\) 处的左导数不超过 \(f'(r_*)\)。在 \(r_*\) 右侧，该函数恒为零。将左导数记为 \(-k<0\)，即得
+\begin{equation}\label{eq:motion-kink}
+ R(A,r_*+h)=k(-h)_+ +o(|h|).
+\end{equation}
+
+\subsection{在阈值处重新缩放}
+
+令有理数 \(\varepsilon\downarrow0\)，并选取有理数 \(r_0=r_*-\varepsilon+o(\varepsilon)\)。在以 \(A\) 为基点的谱超极限中，将距离和价格均乘以 \(2/(k\varepsilon)\)。对每个 \(z\in K_0\)，取点 \(L_z\)，它以下式为代表：
+\[
+   g_{t^{r_0}z(t^\varepsilon)}A ,
+\]
+其中代换在 \(F(\mathcal U)\) 上为恒等。固定 \(z\) 后，平移指标最终属于 \(J\)，且重新缩放后的位移由 \eqref{eq:motion-kink} 控制。开头的有限项可以任取。指标代换的可加性给出对所有 \(z\in K_0\) 的平移不变性。由于任一置换都固定 \(A\) 且与该代换可交换，置换不变性也成立。为将星形比较推广到关于 \(c\) 的任意仿射表达式，只须注意到，在取极限之前，其系数变为 \(t^{r_0}a_i(t^\varepsilon),t^{r_0}b_i(t^\varepsilon)\)。各中心 \(c_j(t^\varepsilon)\) 的剩余类仍然各异，星形每条支臂的长度均乘以 \(\varepsilon\)，而所测试的各指标最终都属于 \(J\)。因此，\eqref{eq:motion-star} 中的公共因子可以约去，该不等式传至超极限。特殊化的论证相同。
+
+对于一般参数，极限距离直接由 \eqref{eq:motion-R} 及 \eqref{eq:motion-kink} 给出：
+\[
+ d(L_0,L_{t^ru})=2(1-r)_+
+ \qquad(r\in\mathbb Q).
+\]
+对于具有该赋值的每个参数，同一公式仍然成立。更精确地说，
+\begin{equation}\label{eq:motion-leaves}
+ d(L_z,L_{z'})=2(1-\nu(z-z'))_+ .
+\end{equation}
+若指标不同，写成 \(z'-z=t^r v\)，其中 \(\nu(v)=0\)。平移与特殊化给出所需的上界，当 \(r\ge1\) 时它已经是等式。若 \(r<1\)，则用具有两个分别以零与 \(v\) 为中心的向内端点的星形来测试 \(d(L_0,L_{t^rc})\)。以零为中心的支臂取任意长度 \(0<a<1-r\)，斜率均为 \(-2\)。由一般距离公式，向外的支臂斜率为 \(+2\)。这两个斜率在 \eqref{eq:motion-star} 中抵消，于是余下的 \(v\) 支臂具有非负斜率。特殊化又使该斜率非正，因此其端点处的距离等于一般值 \(2(1-r)\)。在这条支臂上选取长度 \(b\ge1-r\)。已证的上界给出 \(L_{t^r(v+t^bu)}=L_{t^rv}\)，故 \eqref{eq:motion-leaves} 中等号成立。
+
+\subsection{圆盘树的测地线}
+
+距离公式确定了各叶的位置。为找出分支点，我们证明如下结论：取两片叶，并从其中一片向第三片叶作测地线；只要第三片叶到出发点的距离至少为原来两片叶之间的距离，该测地线就经过原来两片叶的中点。
+
+设 \(B=L_b\)、\(C=L_{b+v}\)、\(d(B,C)=2h>0\)，令 \(m\) 为它们的中点。取向内端点为 \(0,1\) 的星形，两条内支臂的长度都为 \(h\)，外支臂长度为 \(s\)。在 \([B,C]\) 上按下述方式指定点：在星形的中心和向外端点均取 \(m\)，在两个向内端点分别取 \(B,C\)。按与各臂长度倒数成正比的权重，这个点到线段两个端点各自的距离都是调和的。因此由引理~\ref{lem:geodesic}，可比较它到 \(L_{b+cv}\) 的距离。由 \eqref{eq:motion-leaves}，在两个向内端点处该距离均为零。在向外端点，经过 \(B\) 的路径表明该距离至多为 \(3h+2s\)。因此在中心的一般距离 \(J_*=d(m,L_{b+uv})\) 满足
+\[
+  0\le-\frac{2J_*}{h}+\frac{3h+2s-J_*}{s}.
+\]
+令 \(s\) 趋于无穷得到 \(J_*\le h\)；再由特殊化，整个单位圆盘都满足同一上界。更一般地，
+\begin{equation}\label{eq:motion-midpoint}
+ d(m,L_{b+cv})\le h+2s \qquad(\nu(c)\ge-s,\ s\ge0 \text{ 为有理数}).
+\end{equation}
+事实上，应用仅有一个向内端点的比较可知，\(c=t^{-s}u\) 处的一般值关于 \(s\) 是凸的。其初值至多为 \(h\)，并且始终以 \(3h+2s\) 为上界。于是由零点引出的割线斜率均不超过 \(2\)。应用特殊化即得断言。
+
+若 \(d(B,L_z)=2h+2s\) 且 \(s\ge0\)，则在 \eqref{eq:motion-midpoint} 中取 \(c=(z-b)/v\)。三角不等式迫使等号成立，且 \(m\in[B,L_z]\)。特别地，从 \(B\) 起距离为 \(2h\) 的每片叶均给出同一个中点。对每个有理数 \(\ell\le1\)，取任意一片充分远的叶 \(L_{z'}\)，记 \([L_z,L_{z'}]\) 上距 \(L_z\) 为 \(1-\ell\) 的点为 \(P(z,\ell)\)。当 \(\ell<1\) 时，先取距离为 \(2(1-\ell)\) 的 \(z'\)，并采用刚刚确定的中点。当 \(\ell=1\) 时，取 \(L_z\)。距离为 \(2h\) 的两片不同叶 \(L_z,L_{z'}\) 在深度 \(1-h=\nu(z-z')\) 相遇。选取距这两片叶都充分远的第三片叶。从两个原有叶分别应用中点判据，它们的公共中点同时位于通往第三片叶的两条测地线上。在大于相遇深度处，两条路径分别位于 \([L_z,L_{z'}]\) 的两半。在小于该深度处，由测地线的唯一性，它们位于从中点到第三片叶的同一线段上。重合的叶在所有深度都有相同的路径。于是
+\begin{equation}\label{eq:motion-tree}
+ d(P(z,\ell),P(z',\ell'))=
+       \ell+\ell'-2\min\{\ell,\ell',\nu(z-z')\}.
+\end{equation}
+因此点 \(P(z,\ell)\) 仅依赖于圆盘 \(\{z':\nu(z'-z)\ge\ell\}\)。其祖先对应包含该圆盘的各个更大圆盘。
+
+在有限星形比较中，现在可指定各点 \(P(a+bc,\ell)\)，使其深度在星形上调和。取足够大的 \(N\)，以得到一片远叶 \(L_{t^{-N}}\)。该远叶到有限测试中每片 \(L_{a+bc}\) 的距离相同，相应线段均包含所指定的站点。该站点到这两个端点的指定距离分别为 \(1-\ell\)，以及上述公共距离减去它所得的差。于是可应用引理~\ref{lem:geodesic}。对于常值深度，该引理也给出特殊化。特别地，沿射线 \(c=\xi+t^\rho u\)，如果每个深度都是 \(\rho\) 的仿射函数，则固定的非零张量的价格关于 \(\rho\) 是凸的，因为可通过在零处具有一个向内端点的星形比较任意三个有理半径。在 \(\rho=0\) 处，当 \(\xi\) 为整元素时，由两个反向的特殊化，\(u\) 与 \(\xi+u\) 所给的一般值相同。
+
+\subsection{四个站点共享标号的价格}
+
+将共享标号 \(\Delta_{[4]}(q)=\sum_{j=1}^q e_j^{\otimes4}\)（\(q\ge2\)）放在圆盘树四条等长分支的尖端。取前三个中心 \(z_1=0,z_2=1,z_3\in F\setminus\{0,1\}\)，使第四个中心 \(z_4=c\) 变化。当 \(c=u\) 为新不定元时，有理深度 \(0<\ell<1\) 处的四个尖端 \(P(z_i,\ell)\) 具有共同原点 \(P(0,0)\)，两两距离为 \(2\ell\)。将其标号的价格除以 \(\log q\)，所得记为 \(D_\ell\)。它在 \(\ell=0\) 时为零。由联合测地凸性以及四条通往公共原点的大小为 \(q\) 的连线给出的上界 \(4\ell\)，得到有限的单侧斜率
+\[
+ \underline D=\lim_{\ell\downarrow0}\frac{D_\ell}{2\ell}.
+\]
+分母为连接两个尖端的单条连线的归一化价格。让第四个中心依次移向三个固定中心，即可估计此比值。
+
+在指向 \(z_i\) 的支臂上，对 \(0\le r\le2\ell\) 令 \(c=z_i+t^r u\)。将 \(i,4\) 的深度增加 \(r/2\)，其余一对的深度减小 \(r/2\)。取 \(2\ell\le1\)，使四个深度均在树中。由 \eqref{eq:motion-tree}，每对内部的距离均为 \(h=2\ell-r\)，跨越两对的四个距离均为 \(2\ell\)。连接两对中点的路径增加的长度，恰好等于每对内部距离的缩短量。图~\ref{fig:collision} 描绘了与 \(z_1\) 的碰撞。重新标号就得到第~\ref{sec:boundary} 节所用的与 \(z_3\) 的碰撞。当 \(r=2\ell\) 时，每对尖端都已合并。在每一端，分组后的向量 \(e_j\otimes e_j\) 线性无关，因此在局部映射下，该标号等价于一条大小为 \(q\) 的连线。其碰撞时的归一化价格恰为 \(2\ell\)。
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    x=1cm,y=1cm,
+    outer/.style={draw=ink,line width=.75pt},
+    trunk/.style={draw=sea,line width=1.15pt},
+    site/.style={circle,fill=ink,inner sep=0pt,minimum size=4.2pt},
+    branch/.style={circle,draw=ink,fill=white,inner sep=0pt,minimum size=4.0pt},
+    lab/.style={font=\small,inner sep=2pt},
+    stage/.style={font=\small,anchor=north,inner sep=1pt}
+  ]
+  \begin{scope}
+    \coordinate (p) at (0,0);
+    \coordinate (one) at (-.86,.66);
+    \coordinate (four) at (-.86,-.66);
+    \coordinate (two) at (.86,.66);
+    \coordinate (three) at (.86,-.66);
+    \draw[outer] (one)--(p)--(two) (four)--(p)--(three);
+    \node[lab,above right] at (-.47,.36) {$\ell$};
+    \node[branch] at (p) {};
+    \foreach \pt/\val/\side in {one/1/left,four/4/left,two/2/right,three/3/right}{
+      \node[site] at (\pt) {};
+      \node[lab,\side=2pt] at (\pt) {$\val$};
+    }
+    \node[stage] at (0,-1.02) {$h=2\ell$};
+  \end{scope}
+  \draw[-{Stealth[length=4pt]},draw=black!50] (1.51,0)--(2.13,0);
+  \begin{scope}[shift={(4.11,0)}]
+    \coordinate (leftbranch) at (-.67,0);
+    \coordinate (rightbranch) at (.67,0);
+    \coordinate (one) at (-1.36,.66);
+    \coordinate (four) at (-1.36,-.66);
+    \coordinate (two) at (1.36,.66);
+    \coordinate (three) at (1.36,-.66);
+    \draw[outer] (one)--(leftbranch)--(four) (two)--(rightbranch)--(three);
+    \draw[trunk] (leftbranch)--(rightbranch);
+    \node[lab,above] at (0,.02) {$2\ell-h$};
+    \node[lab,above right] at (-1.11,.41) {$h/2$};
+    \node[branch] at (leftbranch) {};
+    \node[branch] at (rightbranch) {};
+    \foreach \pt/\val/\side in {one/1/left,four/4/left,two/2/right,three/3/right}{
+      \node[site] at (\pt) {};
+      \node[lab,\side=2pt] at (\pt) {$\val$};
+    }
+    \node[stage] at (0,-1.02) {$0<h<2\ell$};
+  \end{scope}
+  \draw[-{Stealth[length=4pt]},draw=black!50] (6.10,0)--(6.72,0);
+  \begin{scope}[shift={(8.36,0)}]
+    \draw[trunk] (-.90,0)--(.90,0) node[lab,midway,above] {$2\ell$};
+    \node[site] at (-.90,0) {};
+    \node[site] at (.90,0) {};
+    \node[lab,below] at (-.90,-.05) {$1,4$};
+    \node[lab,below] at (.90,-.05) {$2,3$};
+    \node[stage] at (0,-1.02) {$h=0$};
+  \end{scope}
+\end{tikzpicture}
+\caption{第四个尖端与第一个尖端碰撞。在中间的树上，每对内部的距离为 \(h\)，两对中点之间的线段长 \(2\ell-h\)。到最右端时，共享标号成为一条长度为 \(2\ell\) 的连线。}
+\label{fig:collision}
+\end{figure}
+
+在这三条支臂上，前三个站点各自的深度斜率之和都是 \(-1/2\)，在站点 \(4\) 则为 \(3/2\)。为使所有深度均调和，添加两条长度为 \(\ell\) 的支臂。在一条尚未使用的有限支臂 \(a\in F\setminus\{z_1,z_2,z_3\}\) 上，使每个深度都以 \(1/2\) 的斜率增加。由特殊化，其端点处的归一化价格至多为 \(D_{3\ell/2}\)。在外支臂上取 \(c=t^{-r}u\)。此时只有第四个深度发生变化，斜率为 \(-2\)。当 \(r=\ell\) 时，此站点即为 \(P(0,-\ell)\)。将所得标号的归一化价格记为 \(D_\ell^-\)。沿各射线的价格函数在各自的原点处连续。事实上，对于绝对值小的正负 \(r\)，采用相同的仿射深度规定以及 \(t^r\) 或 \(t^{-r}\)，就可得到跨越零点的凸延拓。
+
+图~\ref{fig:harmonic} 在同一次比较中列出了五条支臂上的深度变化。每列的和都为零，这正是相应站点的调和性条件。
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[font=\small,
+ inner/.style={draw=ink,line width=.8pt},
+ end/.style={inner sep=2pt,anchor=west},
+ twig/.style={draw=sea,densely dashed,line width=.85pt},
+ up/.style={draw=rust,line width=1.05pt}]
+ \draw[inner] (0,0)--(1.9,1.4) node[end] at (1.96,1.4){$z_1$};
+ \draw[inner] (0,0)--(2.32,.4) node[end] at (2.38,.4){$z_2$};
+ \draw[inner] (0,0)--(2.18,-.9) node[end] at (2.24,-.9){$z_3$};
+ \draw[twig] (0,0)--(.48,-1.08);
+ \draw[up,{Stealth[length=4pt]}-] (-1.18,0)--(0,0);
+ \node at (-1.58,0) {$\infty$};
+ \node at (.58,-1.38) {$a$};
+ \fill[ink] (0,0) circle (1.8pt);
+ \node at (-.19,.36) {$u$};
+ \node[anchor=west] at (3.58,0) {$
+  \renewcommand{\arraystretch}{1.22}
+  \begin{array}{c | c c c c | l}
+     &1&2&3&4&\text{端点估计}\\ \hline
+
+    z_1 &1&-1&-1&1& 2\ell\\
+    z_2 &-1&1&-1&1& 2\ell\\
+    z_3 &-1&-1&1&1& 2\ell\\
+    a&1&1&1&1& D_{3\ell/2}\\
+    \infty&0&0&0&-4&D_\ell^-
+  \end{array}$};
+\end{tikzpicture}
+\caption{以参数圆盘的一般点 \(u\) 为起点的五条支臂。三条碰撞支臂长均为 \(2\ell\)，未使用的有限支臂 \(a\) 和外支臂的长度均为 \(\ell\)。表中给出四个深度斜率的两倍，以及各端点处标号的归一化价格上界。}
+\label{fig:harmonic}
+\end{figure}
+
+下面将 \(D_\ell^-\) 与一般的归一化价格比较。从固定的小深度 \(\lambda>0\) 出发，沿外射线走到 \(0<R<\lambda\)，所有长度均取有理数。记归一化价格为 \(D(\lambda,R)\)。以 \(P(0,0)\) 为中心，前三个站点的半径为 \(\lambda\)。由 \eqref{eq:motion-tree}，第四个站点的半径也是 \(\lambda\)，其测地线的前 \(R\) 个单位朝向负深度。将这四个半径同时由 \(\lambda\) 收缩到 \(\ell\le R\)，便得到定义 \(D_\ell^-\) 的放置，故由凸性有
+\[
+   \frac{D_\ell^-}{2\ell}\le\frac{D(\lambda,R)}{2\lambda}.
+\]
+先对 \(\ell\) 取上极限，再由射线上的连续性令 \(R\downarrow0\)，最后令 \(\lambda\downarrow0\)，得到 \(\limsup D_\ell^-/(2\ell)\le \underline D\)。将第四个有限端点的上界代入 \eqref{eq:motion-star}，有
+\begin{equation}\label{eq:motion-fourstar}
+ 0\le 3\frac{2\ell-D_\ell}{2\ell}
+      +\frac{D_\ell^--D_\ell}{\ell}
+      +\frac{D_{3\ell/2}-D_\ell}{\ell}.
+\end{equation}
+在极限中，三条碰撞支臂的贡献为 \(3(1-\underline D)\)。外支臂的上极限至多是零，而由于 \(D_{3\ell/2}/(3\ell)\to \underline D\)，最后一项趋于 \(\underline D\)。因此 \(0\le 3(1-\underline D)+\underline D\)，即
+\begin{equation}\label{eq:motion-upper}
+                        \underline D\le 3/2 .
+\end{equation}
+
+第~\ref{sec:boundary} 节的矩形比较将用到图~\ref{fig:collision} 中端点 \(h=0\) 附近的这个界。在那里，三个固定尖端组成一副带两条短臂和一条长臂的三脚架。把所得极限价格等式推广到平衡三脚架，得到共享标号的归一化价格 \(8/3\)。该三脚架的三条矩阵乘法连线总长为 \(6\)，故秩比较所得的指数为 \(6/(8/3)=9/4\)。

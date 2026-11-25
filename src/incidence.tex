@@ -1,0 +1,105 @@
+\section{关联图的扩张性}\label{sec:incidence}
+
+设 $S$ 是仿射平面中由互异点组成的有限集，称至少包含其中两个点的直线为\emph{割线}。记割线集为 $\mathcal L$，经过点 $i$ 的割线条数为 $t_i$。对经过中心化的实数标记 $v_i$，即满足 $\sum_i v_i=0$ 的标记，有
+\[
+ \sum_{L\in\mathcal L}\left|\sum_{i\in S\cap L}v_i\right|^2
+       =\sum_{i\in S}(t_i-1)|v_i|^2 .
+\]
+展开平方后，每个对角项出现 $t_i$ 次，每一对相异点组成的有序对恰出现一次。由中心化条件即得等式。我们需要一个适用于谱度量空间中点配置的版本，从而可以度量整条割线在给定方向上对公共中心的牵引程度。这个版本将给出用于置换路由的图中关联边长度平方的均值界（第~\ref{sec:sort-action} 节）。
+
+\subsection{割线不等式}
+
+取满足 $|S|\ge2$ 的 $S\subset F^2$。对每个 $i\in S$，在 $F$ 上的完备 $\mathrm{CAT}(0)$ 谱空间 $X$ 中选择一个站点 $x_i$，并取质量 $a_i>0$。设 $o$ 为 $\sum_i a_i d(o,x_i)^2$ 的极小点，并令 $r_i=d(o,x_i)$。$S$ 中的两个点可配置在同一站点。
+
+设子集 $C\subset S$ 中各点对应的腿具有宽度 $a_i r_i$。将它们从一个公共站点 $m$ 送往各自目的地的费用为 $\sum_{i\in C}a_i r_i d(m,x_i)$。在 $m=o$ 处应用第一变分公式，并允许公共站点停在 $o$，则沿单位距离的初始费用节省率的上确界为
+\[
+ K_C=\sup_{y\ne o}
+       \left(\sum_{i\in C}a_i r_i\cos\angle_o(x_i,y)\right)_+ .
+\]
+这里 $y\in X$，$\angle_o$ 表示亚历山德罗夫角；若 $r_i=0$，则相应的加项取零。对单点空间，约定 $K_C=0$。记 $K_L=K_{S\cap L}$。在实直线上，取 $v_i=a_i(x_i-o)$ 时，该量恰为上文相应割线上的标记和的绝对值。
+
+\begin{theorem}[关联不等式]\label{thm:incidence}
+若 $F$ 为代数闭域且 $\omega_F<9/4$，则对每一组如上给定的有限仿射点、带权站点和割线，都有
+\begin{equation}\label{eq:inc-secants}
+       \sum_{L\in\mathcal L}K_L^2
+          \le \sum_{i\in S}(t_i-1)a_i^2r_i^2 .
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+记 $i=(u_i,v_i)$，将各点投影到球面上的位置 $z_i(s)=u_i s+v_i$。当 $s$ 变化时，每对点恰在 $\mathbb P^1(F)$ 上碰撞一次，其中在无穷远处使用投影 $i\mapsto u_i$。设 $D$ 由所有有限的碰撞参数和 $\infty$ 组成。对每个 $\alpha\in D$，记 $\mathcal P_\alpha$ 为其投影的各条纤维构成的划分。包含多于一个点的纤维，恰为原点集与各割线的交，每个交均出现在与其方向对应的参数处。因此 $i$ 恰在 $|D|-t_i$ 个参数处独自组成一条纤维，且 $K_{\{i\}}=a_i r_i$。在式~\eqref{eq:inc-secants} 两边加上这些单点纤维的贡献，即得等价的估计
+\begin{equation}\label{eq:inc-fibers}
+   \sum_{\alpha\in D}\sum_{C\in\mathcal P_\alpha} K_C^2
+             \le (|D|-1)\sum_i a_i^2 r_i^2 .
+\end{equation}
+
+\emph{选择外部宽度。}
+固定 $s_0\notin D$。各位置 $z_i(s_0)$ 互不相同，因此在定理~\ref{thm:sphere} 中取 $\lambda_i=1/(2a_i)$，便得到一组能量 $h_i=h_i(N)$，满足
+\begin{equation}\label{eq:inc-saturation}
+ w_N(h_i)\longrightarrow a_i r_i,\qquad
+ \frac{1}{N}H_{\mathbf x}\bigl(C(\mathbf h;\mathbf z(s_0))\bigr)
+              \longrightarrow P:=\sum_i a_i r_i^2 .
+\end{equation}
+这里 $w_N(h)=c\sqrt h/N$，$c=\pi/\sqrt3$。取这些极限宽度，从 $o$ 处供给各外部腿所需的费用恰为 $P$。若 $P=0$，则所有 $K_C$ 均为零。否则，取充分大的 $N$，使选出的张量非零。其总能量 $H_0=\sum_i h_i$ 为 $O(N^2)$，且是整数，因为在每个非零系数中，所有生成元都配成了对。
+
+\emph{碰撞能量的联合上界。}
+记 $T(s)=C(\mathbf h;\mathbf z(s))$。对有限的 $\alpha$，在该点的坐标图中以 $s-\alpha$ 为坐标。在无穷远处，采用坐标 $u=1/s$ 和位置 $u_i+u v_i$。由张量关于位置的齐次性，在这一坐标图中张量为 $u^{-H_0}T(1/u)$。在两类坐标图中，每条纤维 $C$ 的点都有同一中心以及互不相同的线性偏移。由命题~\ref{prop:fusion}，$l$ 阶系数可展开为对所有满足 $\sum_C e_C=H_0+l$ 的中间能量 $e_C\ge0$ 求和。
+
+暂取线性泛函 $\ell$，使 $f(s)=\ell(T(s))$ 非零。记 $l_\alpha$ 为其在相应张量坐标图中首个非零系数的阶。特别地，$l_\infty=\operatorname{ord}_\infty f-H_0$。函数 $f$ 在 $\mathbb P^1$ 上所有点处的通常阶数之和为零。由于 $D$ 之外没有极点，这些阶对应的总能量满足
+\begin{equation}\label{eq:inc-orders}
+  \sum_{\alpha\in D}(H_0+l_\alpha)\le (|D|-1) H_0 .
+\end{equation}
+每个加项均非负。对所有方向使用\emph{同一个}泛函，才能对这些方向的中间能量总和给出一个统一的界。
+
+现在要求所选系数保留式~\eqref{eq:inc-saturation} 中的价格。在每张坐标图中，收集所有总中间能量至多为 $(|D|-1)H_0$ 的融合项。它们的数目至多为 $N$ 的多项式。事实上，每一项由每条纤维上的一个非负半整数确定，而纤维数与方向数是固定的。设 $W$ 为所收集的项中价格低于 $H_{\mathbf x}(T(s_0))-\sqrt N$ 的项所张成的空间。普通和不等式表明，$W$ 中每个非零张量的价格均不超过该阈值加上 $O(\log N)$。当 $N$ 充分大时，$T(s_0)\notin W$。取线性泛函 $\ell$，使它在 $W$ 上恒为零，而在 $T(s_0)$ 上非零。对每个 $\alpha$，在使该泛函取非零值的首个阶 $l_\alpha$ 处，相应系数中至少有一个融合项在 $\ell$ 下仍非零。由式~\eqref{eq:inc-orders}，该项已被收集，所以其价格至少为 $H_{\mathbf x}(T(s_0))-\sqrt N$。对每个方向各选一个这样的项。
+
+取一个公共子列，使选出的各宽度 $w_N(e_C)$ 均收敛，记极限为 $b_{\alpha,C}$。这些宽度的数目有限，并且依据式~\eqref{eq:inc-orders} 全部有界。将该不等式乘以 $c^2/N^2$，得到
+\[
+ \sum_{\alpha\in D}\sum_{C\in\mathcal P_\alpha}b_{\alpha,C}^2
+                  \le (|D|-1)\sum_i a_i^2 r_i^2 .
+\]
+
+\emph{一条纤维所需的宽度。}
+固定 $\alpha$、一条纤维 $C$ 以及 $y\ne o$。为得到选出的项，在 $o$ 处制备融合后的张量。将 $C$ 对应的中间腿沿 $[o,y]$ 传送距离 $t$ 至站点 $m$，在那里施加融合映射，再将各外部腿从 $m$ 送到各自的站点。其余各腿全部在 $o$ 处分开。根据传输界~\eqref{eq:prices-transport} 和 $\log\dim V_h\le c\sqrt h$，所选项的价格不超过以上供给的费用。除以 $N$ 后，$\sqrt N$ 的价格损失趋于零。利用式~\eqref{eq:inc-saturation} 取极限可得
+\[
+ P\le\sum_{i\notin C}a_i r_i^2+b_{\alpha,C}t+
+                       \sum_{i\in C}a_i r_i d(m,x_i).
+\]
+在 $t=0$ 处等号成立，因此右导数非负。由 $\mathrm{CAT}(0)$ 空间中的第一变分公式可知，$b_{\alpha,C}\ge\sum_{i\in C}a_i r_i\cos\angle_o(x_i,y)$ \cite[第~II.3~章]{BridsonHaefliger}。对正部取上确界，得到 $b_{\alpha,C}\ge K_C$，这就证明了式~\eqref{eq:inc-fibers}。
+\end{proof}
+
+\subsection{局部链环的最优不等式}
+
+设 $F$ 包含 $\mathbb F_q$。取仿射平面 $\mathbb F_q^2$ 中的 $q^2$ 个点，从中保留 $s$ 个平行类的所有直线，其中 $1\le s\le q+1$。每个点位于 $s$ 条保留的直线上，每条直线包含 $q$ 个点。将所得二部关联图的顶点配置在 $X$ 中。设 $e$ 是均匀随机选取一条边时其两端距离平方的均值。将总质量平分给图的两侧，每侧的质量在其顶点之间均匀分配。记 $V$ 为这一分布到一个公共中心的距离平方均值所能取得的最小值。
+
+\begin{corollary}[仿射关联链环]\label{cor:inc-link}
+在定理~\ref{thm:incidence} 的假设下，
+\[
+                   e\ge 2(1-s^{-1/2}) V .
+\]
+在每个包含非平凡测地线段的目标空间中，这个系数都是最优的。去掉一个平行类，得到 $s=q$，此图是有 $2q^2$ 个顶点的 $q$-正则图。
+\end{corollary}
+
+\begin{proof}
+取 $o$ 为仅由点侧站点确定的重心。分别用 $r_i,r_L$ 表示点侧站点 $x_i$ 和直线侧站点 $y_L$ 到 $o$ 的距离。两侧各自的距离平方均值为
+\[
+             A=q^{-2}\sum_i r_i^2,\qquad
+             B=(sq)^{-1}\sum_{L\ \text{保留}} r_L^2 .
+\]
+对每对关联的点与直线，由三角形比较，其距离平方至少为 $r_i^2+r_L^2-2r_i r_L\cos\angle_o(x_i,y_L)$。若某一半径为零，交叉项也为零。在式~\eqref{eq:inc-secants} 中令所有质量为一，可知即使取全部直线，仍有 $\sum_L K_L^2\le q\sum_i r_i^2$。因此，在保留的 $s q^2$ 对关联上，交叉项的均值至多为
+\[
+ \frac{2}{s q^2}\sum_{L\ \text{保留}}r_L K_L
+        \le\frac{2}{s q^2}
+           \sqrt{q\sum_i r_i^2\sum_{L\ \text{保留}}r_L^2}
+        = 2\sqrt{AB/s}.
+\]
+故
+\[
+      e\ge A+B-2\sqrt{AB/s}\ge (1-s^{-1/2})(A+B).
+\]
+取 $o$ 为中心便得 $V\le(A+B)/2$，从而证明了推论中的不等式。
+
+为说明等号可以达到，任选一个保留的平行类，赋予其 $q$ 条直线均值为零、方差为正的实数标记。给每个点赋予它所在的该类直线的标记。在此平行类中，给每个直线侧站点赋予其原标记的 $\sqrt s$ 倍，而给其他直线侧站点赋予零标记。现在两侧的均值均为零，且具有相同的平方均值 $A$。与该类关联的边所占比例为 $1/s$，所以边两端标记乘积的均值为 $A/\sqrt s$。于是 $V=A$ 且 $e=2(1-s^{-1/2})A$。通过平移与缩放，可将这些标记置于 $X$ 的任意非平凡线段上。向该线段作最近点投影，可知在整个空间内求最小值仍得到相同的数值。
+\end{proof}
+
+用 $A+B$ 表示的界将点侧重心固定。第~\ref{sec:sort-action} 节对仿射链环采用这种形式，对射影链环则直接使用割线不等式。

@@ -1,0 +1,100 @@
+\section{张量参数的同步}\label{sec:sync}
+
+定理~\ref{thm:extension} 给出了判定同一价格延拓是否适用于整个族的检验。检验时可以任选族中的若干张量，将其相乘，再联合闭合其额外的腿。对于依赖某个标记点 $s$ 的族，这种检验中的两个因子因而可以具有不同的标记点。第~\ref{sec:sphere}~节对球面所作的计算，将给出所有因子使用同一标记点时的估计。我们证明，只要方阵乘法的指数严格小于九分之四，这种对角检验就足以控制标记点的任意选择。
+
+固定一个代数闭域 $F$、基础站点集 $S$ 上尺度为 $D>0$ 的普通价格 $H$，以及称为开口的额外站点组成的有限集 $L$。回顾式~\eqref{eq:prices-beta}，$\beta_H$ 度量的是取张量幂后在每个开口施加一个联合泛函时，每个副本所能取得的最大价格。对于多项式张量族 $T(\mathbf s)$（其中 $\mathbf s=(s_1,\ldots,s_d)$），记
+\[
+ \beta_H^{\rm gen}(T(\mathbf s))
+    =\sup_{\mathbf c\in F^d}\beta_H(T(\mathbf c)).
+\]
+对于第~\ref{sec:valued}~节中 $H$ 的一般延拓，这就是在相互独立的不定元处的辅助成本。事实上，固定一个幂次和一个系数为有理函数的闭合操作。可以在某个公共开集上同时对其元素和张量作特殊化，使所得价格任意接近一般值。反之，若 $F$ 上的一个固定闭合操作在一点处验证了某个严格下界，由价格次水平集的闭性，它也在某个非空开集上验证同一个界。因此，将参数域限制到任意稠密开集都不改变上确界。
+
+\begin{theorem}[同步]\label{thm:sync}
+假设 $\omega_F<9/4$。对于 $F^d$ 上具有相同基础站点和开口的任意多项式张量族 $U_1,\ldots,U_a$，有
+\[
+ \beta_H^{\rm gen}\!\left(\bigotimes_{i=1}^a U_i(\mathbf s_i)\right)
+ =
+ \beta_H^{\rm gen}\!\left(\bigotimes_{i=1}^a U_i(\mathbf s)\right).
+\]
+左侧的 $a$ 个参数向量独立变化，右侧的参数向量则全部相等。两侧的乘积都在每个开口将张量腿归为一组，因此任一侧的闭合操作都可以将所有因子耦合起来。
+\end{theorem}
+
+\begin{proof}
+选取相同参数便得到右侧不大于左侧。为证反向不等式，先考虑同一单变量族 $U(s)$ 的多个副本。若有一个因子恒为零，断言立即成立，因此可以假设所考虑的族都非零。记 $B=\beta_H^{\rm gen}(U(s))$。由张量幂的齐次性，$a$ 个副本的对角成本为 $aB$。我们先控制同一剩余类 $s$ 上方的一个圆盘内的不同参数，再令该圆盘的赋值深度趋于零以恢复独立参数。
+
+\smallskip\noindent\emph{在同一剩余类上方钉扎站点。}
+取不可数个独立不定元组成的集合 $\mathcal U$，另取一个不定元 $s$。置
+\[
+ E=F(\mathcal U,s),\qquad
+ K_0=\operatorname{Frac}(F(\mathcal U)[t^{\mathbb Q}]),\qquad
+ J=\{z\in K_0:\nu(z)>0\}.
+\]
+将 $H$ 一般延拓到 $E$ 后再作高斯提升，所得为 $K_0(s)$ 上的赋值价格 $p$（定理~\ref{thm:gauss}）。对于 $z\in J$，平移 $z$ 保持单位圆盘不变。对该平移及其逆施用引理~\ref{lem:star}，并取 $s$ 为新的剩余变量，得到
+\begin{equation}\label{eq:sync-disk-single}
+     \beta_p(U(s+z))=\beta_p(U(s))=B .
+\end{equation}
+第二个等号成立，是因为对于与 $t$ 无关的系数，高斯提升与普通的一般价格相同。与引理~\ref{lem:star} 的证明一样，只需采用元素为 $F$ 中常数的闭合泛函。
+
+固定 $M\ge1$ 和 $S$ 中的一个锚点。对于每个 $z\in J$，令 $V_z$ 为 $U(s+z)^{\otimes M}$ 与引理~\ref{lem:pinning} 的钉扎惩罚项的乘积，每个开口取一项。由平移不变性，其最小值 $b=\beta_p(V_z)$ 对所有 $z$ 都相同。给每个目标函数分配各自的 $L$ 副本。由引理~\ref{lem:pinning}，各目标函数的极小化站点 $x_{z,\ell}$（$\ell\in L$）可在 $F$ 上的同一个完备 $\operatorname{CAT}(0)$ 谱空间中实现。对目标函数的任意有限列表，都有一个赋值延拓同时实现它们的最小值。
+
+\smallskip\noindent\emph{极小化站点不能移动。}
+对于每个 $\ell$，我们验证，若映射 $z\mapsto x_{z,\ell}$ 非常值，则它满足定理~\ref{thm:motion} 的假设。把这些普通站点与赋值圆盘联系起来的是钉扎后的求值公式。对于 $F$ 上的任一非零检验张量 $T$，若将其放在来自有限列表 $z_1,\ldots,z_m$ 的站点上，其价格为
+\begin{equation}\label{eq:sync-pinned-prices}
+ \lim_{n\to\infty}
+ \left[
+ \beta_p\!\left(
+  (V_{z_1}\otimes\cdots\otimes V_{z_m})^{\otimes n}\otimes T
+ \right)-nmb
+ \right].
+\end{equation}
+其中 $L$ 的 $m$ 个副本彼此分开。若两个参数重合，则由钉扎的唯一性，相应极小化站点间的距离为零。
+
+置换 $\mathcal U$ 中的不定元，并相应地重新标记 $z_j$，不改变式~\eqref{eq:sync-pinned-prices} 中的价格。将所有 $z_j$ 同时平移 $w\in J$，相当于在 $K_0$ 上的一个多项式族中将 $s$ 换为 $s+w$，因而由圆盘比较可知，每个有限 $n$ 对应的表达式也保持不变。对于定理~\ref{thm:motion} 中的仿射检验 $z_j=a_j+b_jc$，$\beta_p$ 内部的张量关于 $c$ 是多项式。因此引理~\ref{lem:star} 在该圆盘及其内端和外端给出特殊化比较和加权次平均不等式。在每一端减去同一常数 $nmb$ 后，不等式保持成立，再取极限就得到钉扎后的价格所满足的不等式。
+
+还需验证在零处的连续性。对于开口的任意固定配置，$U(s+z)$ 和 $U(s)$ 都各有一个赋值为零的元素，因为它们共同的约化 $U(s)$ 非零。这两个张量在此处的价格都非负。它们之差的每个元素的赋值都至少为 $\nu(z)$。对差应用逐元素界~\eqref{eq:prices-range}，并在两个方向上使用关于和的不等式，可知两张量的价格之差的绝对值至多为
+\[
+      \eta(z)=D\log\!\left(1+\exp((C-\nu(z))/D)\right)
+\]
+其中常数 $C$ 仅依赖于规格和尺度。在使 $V_z$ 达到最小值的站点配置上计算 $V_0$ 的价格。由于在此配置上钉扎惩罚项相同，该价格至多为 $b+M\eta(z)$。在同时使两个列表达到最小值的公共延拓中，将中点估计~\eqref{eq:prices-midpoint} 应用于 $V_0$，得到
+\[
+  2c_D\sum_{\ell\in L}d(x_{z,\ell},x_{0,\ell})^2 \le M\eta(z).
+\]
+固定 $M$ 并令 $\nu(z)\to\infty$，右侧趋于零。所有距离以尺度 $D$ 为界。由定理~\ref{thm:motion}，若存在一个非常值的钉扎站点族，则对每个 $n$，矩阵乘法的精确秩都至少为 $n^{9/4}$。由引理~\ref{lem:bilinearize} 便有 $\omega_F\ge9/4$。因此，对每个 $\ell$，所有 $x_{z,\ell}$ 都重合。
+
+\smallskip\noindent\emph{去掉惩罚项并恢复独立参数。}
+各惩罚项之和介于零与仅依赖于 $D$ 和 $|L|$ 的常数 $C_0$ 之间。用使 $U(s+z)$ 达到最小值的配置作比较，由式~\eqref{eq:sync-disk-single} 得 $b\le MB+C_0$。因此在钉扎的站点配置上，$U(s+z)$ 的价格至多为 $B+C_0/M$。对于任意 $z_1,\ldots,z_a\in J$，取一个使相应钉扎目标同时达到最小值的公共赋值延拓。相应开口之间的距离为零，故由传输可知，即使对系数属于 $K_0(s)$ 的张量，它们的价格也相同。在这些公共开口处利用价格对乘积的可加性，得
+\[
+  \beta_p\!\left(\bigotimes_{i=1}^aU(s+z_i)\right)
+       \le a(B+C_0/M).
+\]
+令 $M\to\infty$，就得到整个圆盘上的上界 $aB$。
+
+取彼此独立的 $u_1,\ldots,u_a\in\mathcal U$。固定幂次 $h$ 和 $F$ 上的一个闭合操作，将其施于 $(\bigotimes_i U(s+v u_i))^{\otimes h}$，便在基础站点上得到 $E$ 上的多项式张量 $P(v)$。对有理数 $r>0$，参数 $s+t^r u_i$ 均位于 $s$ 上方，从而 $p(P(t^r))\le haB$。以 $H_E$ 表示 $H$ 到 $E$ 的普通一般延拓。若 $P(1)\ne0$，则高斯公式给出
+\[
+                 H_E(P(1))\le p(P(t^r))+r\deg P .
+\]
+事实上，$P(v)^{\otimes n}$ 的各系数之和为 $P(1)^{\otimes n}$。系数个数至多为 $n\deg P+1$，每个系数的高斯惩罚至多为 $rn\deg P$。将它们相加造成的损失至多为 $D\log(n\deg P+1)$。除以 $n$，并用式~\eqref{eq:gauss-price} 取极限。再令 $r\downarrow0$，得到 $H_E(P(1))\le haB$。代换 $u_i\mapsto s+u_i$ 是 $F(s)$ 上的可逆变量替换，因此 $P(1)$ 检验的就是独立的一般参数。遍取所有幂次和常系数闭合操作，就证明了各族相同的情形。
+
+\smallskip\noindent\emph{不同的族和多个坐标。}
+对于任意单变量族 $U_i$，将刚才的结果用于 $U(s)=\bigotimes_iU_i(s)$。取独立的 $s_1,\ldots,s_a$，把 $\bigotimes_jU(s_j)$ 重新组合成 $a$ 个张量 $\bigotimes_i U_i(s_{i+j})$ 的乘积，其中下标按循环读取。在 $F(s_1,\ldots,s_a)$ 上的一般价格下，这些张量的辅助成本相同，因为该价格在不定元置换下不变。对各因子，在分别验证其成本的幂次的一个公倍数处单独施加闭合操作，可知辅助成本对乘积具有超可加性。因此诸 $U_i$ 的独立参数成本的 $a$ 倍，至多为 $U$ 的 $a$ 个副本的独立参数成本，而后者已被证明至多为 $a\beta_H^{\rm gen}(U(s))$。
+
+在多个坐标的情形，任取 $\mathbf c_1,\ldots,\mathbf c_a\in F^d$。对每一坐标插值，得到一条多项式曲线 $\gamma:\mathbb A^1\to\mathbb A^d$，它在不同的标量参数处分别经过这些点。将单变量的结论应用于 $U_i\circ\gamma$，可知这一元组的辅助成本至多为沿 $\gamma$ 的公共参数成本，从而至多为 $F^d$ 上的公共参数成本。对所有元组取上确界即得结论。
+\end{proof}
+
+\begin{corollary}[同时定价]\label{cor:sharedprice}
+在定理~\ref{thm:sync} 的假设下，设 $\{U_i(\mathbf s)\}_{i\in I}$ 为具有相同开口的一组多项式族。假设对于每个允许重复的有限列表 $i_1,\ldots,i_m$，在公共的一般参数处对 $\bigotimes_j U_{i_j}(\mathbf s)$ 作任意闭合，所得价格均至多为 $\sum_j h_{i_j}$。则 $H$ 有一个相同尺度的普通延拓 $\widehat H$，使对每个 $i$ 和每个 $\mathbf c\in F^d$ 都有 $\widehat H(U_i(\mathbf c))\le h_i$。若诸有理族在某个公共的非空开集上正则，则结论在该开集上也成立。特别地，对定义域 $\Omega$ 上的一个这样的族 $U$，有
+\[
+ \min_{\widehat H\supset H}\ \sup_{\mathbf c\in\Omega}\widehat H(U(\mathbf c))
+    =\sup_{\mathbf c\in\Omega}\beta_H(U(\mathbf c)).
+\]
+\end{corollary}
+
+\begin{proof}
+重复每个有限列表，把假设的界用于闭合后的各次幂，从而得到其同步辅助成本的上界。由定理~\ref{thm:sync}，在独立选取的参数处同一上界仍然成立。定理~\ref{thm:extension} 随即给出一个同时适用的价格延拓。
+
+对有限个有理族，在各标量分母均非零的一个稠密开集上消去分母。普通价格在乘以非零标量后保持不变，所以多项式情形的结论在此给出相同的乘积检验。若在某个正则元组处有一项检验失败，则存在固定的幂次和闭合操作，严格违反所要求的界。由价格次水平集的闭性，该元组的某个开邻域上仍然严格违反此界，而该邻域与上述稠密开集相交，矛盾。于是这些检验在整个定义域上均成立，正好符合定理~\ref{thm:extension} 的要求。
+
+为证极小极大恒等式，取逐点辅助成本的上确界作为单个族的界。当该族非零时，由固定规格的界可知此上确界有限。由于 $\beta_H$ 对幂齐次，在公共参数处的乘积均通过检验，故存在满足所述上界的延拓。每个延拓都逐点控制 $\beta_H$，这给出反向不等式。对零族，两边均等于 $-\infty$。
+\end{proof}
+
+对球面张量，$s$ 指定额外的标记点，而族的指标指定其能量。推论~\ref{cor:sharedprice} 一次就确定了张量腿的位置，适用于所有正则位置和所有能量。于是，与每个原有标记点发生碰撞时，都可以从同一站点量取距离。
